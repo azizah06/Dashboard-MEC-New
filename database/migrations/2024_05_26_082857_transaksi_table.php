@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('transaksi',function(Blueprint $table){
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('pelajaran_id')->constrained('pelajaran');
-            $table->string('slug');
-            $table->date('tanggal_pembelian');
-            $table->date('tanggal_pembayaran');
-            $table->string('status_transaksi');
+            $table->string('kode_bayar')->unique();
+            $table->foreignId('siswass_id')->constrained('siswa');
+            $table->foreignId('kelas_id')->constrained('kelas');
+            $table->string('nama_siswa');
+            $table->string('paket_kelas');
+            $table->date('tanggal_bayar');
             $table->decimal('bukti_pembayaran');
             $table->timestamps();
         });
@@ -32,3 +32,4 @@ return new class extends Migration
         Schema::dropIfExists('transaksi');
     }
 };
+

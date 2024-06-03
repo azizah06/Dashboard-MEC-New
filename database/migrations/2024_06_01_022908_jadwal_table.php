@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('jadwal',function(blueprint $table){
             $table->id();
-            $table->foreignId('pelajaran_id')->constrained('pelajaran');
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('slug');
+            $table->string('kode_jadwal')->unique();
+            $table->foreignId('mentors_id')->constraint(table:'mentor',indexName:'mentor_id');
+            $table->foreignId('sarprass_id')->constraint('sarpras');
+            $table->foreignId('Kelass')->constraint('kelas');
             $table->date('hari');
             $table->time('jam_mulai');
             $table->time('jam_akhir');
@@ -33,3 +34,8 @@ return new class extends Migration
         Schema::dropIfExists('jadwal');
     }
 };
+
+
+
+
+

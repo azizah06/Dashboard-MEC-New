@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tentor',function(blueprint $table){
+        Schema::create('sarpras',function(Blueprint $table){
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('slug');
-            $table->foreignId('pendidikan_id')->constrained('pendidikan');
+            $table->string('kode_sarpras')->unique();
+            $table->string('kode_ruang');
+            $table->string('nama_ruang');
             $table->timestamps();
         });
     }
@@ -25,6 +25,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tentor');
+        Schema::dropIfExists('sarpras');
     }
 };
+
+
+
+

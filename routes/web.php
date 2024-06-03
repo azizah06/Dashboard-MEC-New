@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\jadwalController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\profilController;
+use App\Http\Controllers\siswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/play', function () {
-    return view('dashboards-analytics');
-});
+Route::get('/dashboard',[dashboardController::class,'index'])->name('dashboard');
+Route::get('profile',[profilController::class,'index'])->name('profile');
+Route::resource('siswa', siswaController::class);
+Route::resource('jadwal', jadwalController::class);
+
