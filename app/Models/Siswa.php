@@ -16,4 +16,9 @@ class Siswa extends Model
         'jenis_kelamin',
         'alamat',
     ];
+
+    public function pkt_kelas()
+    {
+        return $this->belongsTo(Pkt_kelas::class, 'pkt_kelas_id');
+    }
 }

@@ -15,7 +15,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Paket Kelas</h1>
+                <h1>Edit Paket Kelas</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -31,23 +31,25 @@
                         {{-- <h5 class="card-title">Tambah Data Siswa</h5> --}}
 
                         <!-- Floating Labels Form -->
-                        <form class="row g-3" action="{{ route('paket_kelas.store') }}" method="POST">
+                        <form class="row g-3" action="{{ route('paket_kelas.update', $pkt_kelas->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="col-md-2">
                                 <div class="form-floating">
-                                    <input type="text" name="kd_pkt_kelas" class="form-control" id="kd_pkt_kelas" placeholder="Your Name">
+                                    <input type="text" value="{{$pkt_kelas->kd_pkt_kelas}}" name="kd_pkt_kelas" class="form-control" id="kd_pkt_kelas" placeholder="Your Name" readonly>
                                     <label for="kd_pkt_kelas">Kode Paket Kelas</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" name="nama_kelas" class="form-control" id="nama" placeholder="Your Name">
+                                    <input type="text" value="{{$pkt_kelas->nama_kelas}}" name="nama_kelas" class="form-control" id="nama" placeholder="Your Name">
                                     <label for="nama">Nama Paket</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="number" name="harga" class="form-control" id="harga" placeholder="Your Email">
+                                    <input type="number" value="{{ $pkt_kelas->harga }}" name="harga" class="form-control" id="harga" placeholder="Your Email">
+
                                     <label for="harga">Harga</label>
                                 </div>
                             </div>

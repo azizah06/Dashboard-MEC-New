@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mentor', function (Blueprint $table) {
+        Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kd_mentor')->unique();
+            $table->bigInteger('kd_siswa')->unique();
             $table->string('nama');
-            $table->string('email');
-            $table->string('no_telp');
+            $table->date('tgl_lahir');
             $table->string('jenis_kelamin');
-            $table->string('pendidikan');
             $table->string('alamat');
+            $table->string('no_telp');
+            $table->foreignId('pkt_kelas_id')->nullable()->constrained('pkt_kelas')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mentor');
+        Schema::dropIfExists('siswa');
     }
 };

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Dashboard MEC</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -20,9 +20,8 @@
                         <h1>Data Siswa</h1>
                         <nav>
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item">Tables</li>
-                                <li class="breadcrumb-item active">Data</li>
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Data Siswa</li>
                             </ol>
                         </nav>
                     </div>
@@ -43,7 +42,7 @@
                                 <!-- Search Bar -->
                                 <div class="search-bar d-flex">
                                     <form class="search-form" method="POST" action="#">
-                                        <input class="rounded-3 border-1 p-1 ps-3" type="text" name="query"
+                                        <input class="rounded-3 border-1 border-secondary p-1 ps-3" type="text" name="query"
                                             placeholder="Search" title="Enter search keyword">
                                         <button class="border-0 btn btn-transparent" type="submit" title="Search"><i
                                                 class="bi bi-search"></i></button>
@@ -68,19 +67,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($siswa as $s)
+                                        @foreach ($siswa as $key => $s)
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $s->nama }}</td>
                                                 <td>{{ $s->tgl_lahir }}</td>
                                                 <td>{{ $s->no_telp }}</td>
                                                 <td>{{ $s->jenis_kelamin }}</td>
                                                 <td>{{ $s->alamat }}</td>
                                                 <td>
-                                                    <a href="{{ route('siswa.show', $s->id) }}"
-                                                        class="btn btn-sm btn-info">Detail</a>
+                                                    <a href="{{ route('siswa.show', $s->id) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Siswa"><i class="bi bi-eye"></i></a>
                                                     <a href="{{ route('siswa.edit', $s->id) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                        class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="" class="btn btn-sm">
                                                         <form action="{{ route('siswa.destroy', ['siswa' => $s->id]) }}"
                                                             method="POST">
@@ -107,6 +105,7 @@
             </section>
 
         </main><!-- End #main -->
+
     @endsection
 
     @vite('resources/js/app.js')

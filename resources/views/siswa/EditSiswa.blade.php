@@ -18,9 +18,8 @@
                 <h1>Edit Data Siswa</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">Tables</li>
-                        <li class="breadcrumb-item active">Data</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Data Siswa</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -70,6 +69,20 @@
                             </div>
 
                             <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <select name="pkt_kelas_id" class="custom-select form-control" id="kelas">
+                                        @foreach ($pkt_kelas as $class)
+                                            <option value="{{ $class->id }}"
+                                                {{ $siswa->pkt_kelas_id == $class->id ? 'selected' : '' }}>
+                                                {{ $class->nama_kelas }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="floatingSelect">Paket Kelas</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="form-floating">
                                     <textarea class="form-control" name="alamat" placeholder="Address" id="alamat" style="height: 100px;">{{$siswa->alamat}}</textarea>
                                     <label for="alamat">Alamat</label>
@@ -78,7 +91,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
                         </form><!-- End floating Labels Form -->
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Siswa;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,11 +16,13 @@ class SiswaSeeder extends Seeder
     {
         DB::table('siswa')->insert([
             [
-                'kd_siswa' => 1001,
-                'nama' => 'Nur Azizah R',
-                'tgl_lahir' => '2021/10/10',
-                'jenis_kelamin' => 'Perempuan',
-                'alamat' => 'Surabaya'
+            'kd_siswa' => '1200',
+            'nama' => 'Nur Azizah Rosidah',
+            'tgl_lahir' => '2020-05-01',
+            'no_telp' => '0895077745',
+            'jenis_kelamin' => 'Perempuan',
+            'alamat' => 'Surabaya',
+            'pkt_kelas_id' => '1'
             ]
             ]);
     }

@@ -12,12 +12,7 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-        <form class="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-        </form>
-    </div><!-- End Search Bar -->
+
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
@@ -246,14 +241,14 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('siswa.index') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-mortarboard"></i>
                 <span>Siswa</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('mentor.index') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-card-list"></i>
                 <span>Mentor</span>
             </a>
         </li>
@@ -262,28 +257,28 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('paket_kelas.index') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-boxes"></i>
                 <span>Paket Kelas</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('jadwal.index') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-calendar-event"></i>
                 <span>Jadwal</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('transaksi.index') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-credit-card"></i>
                 <span>Transaksi</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('sarpra.index') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-display"></i>
                 <span> Sarana Prasarana </span>
             </a>
         </li>

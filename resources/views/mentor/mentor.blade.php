@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Dashboard MEC</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -15,14 +15,21 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Data Mentor</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">Tables</li>
-                        <li class="breadcrumb-item active">Data</li>
-                    </ol>
-                </nav>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Data Mentor</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Data Mentor</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-end d-flex flex-column justify-content-center">
+                        <a href="{{ route('mentor.create') }}" class="btn btn-sm btn-primary px-3 ms-auto">Tambah</a>
+                    </div>
+                </div>
+
             </div><!-- End Page Title -->
 
             <section class="section">
@@ -31,23 +38,26 @@
 
                         <div class="card">
                             <div class="card-body">
+
+                                <!-- Search Bar -->
                                 <div class="search-bar d-flex">
-                                    <form class="search-form" method="POST" action="#">
-                                        <input class="rounded-3 border-1 p-1 ps-3" type="text" name="query"
-                                            placeholder="Search" title="Enter search keyword">
-                                        <button class="border-0 btn btn-transparent" type="submit" title="Search"><i
-                                                class="bi bi-search"></i></button>
-                                    </form>
+                                    <div class="search-bar border-2">
+                                        <form class="search-form d-flex align-items-center " method="POST" action="#">
+                                            <input class="border-0" type="text" name="query" placeholder="Search" title="Enter search keyword">
+                                            <button class="border-0 bg-light" type="submit" title="Search"><i class="bi bi-search"></i></button>
+                                        </form>
+                                    </div><!-- End Search Bar -->
                                     <div class="mb-4 ms-auto">
                                         <button class="btn btn-sm btn-info" onclick="importExcel()">Import Excel</button>
                                     </div>
                                 </div>
-                                <!-- Table with stripped rows -->
-                                <a href="{{route('mentor.create')}}" class="btn btn-sm btn-primary mb-3">Tambah</a>
+                                <!-- End Search Bar -->
 
+                                <!-- Table with stripped rows -->
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>No Telp</th>
@@ -58,19 +68,34 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Nur Azizah Rosidah</td>
-                                            <td>nur@gmail.com</td>
-                                            <td>093212346529</td>
-                                            <td>Perempuan</td>
-                                            <td>S1 Sistem Informasi</td>
-                                            <td>Malang Raya</td>
-                                            <td>
-                                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                                <a href="" class="btn btn-sm btn-danger">Del</a>
-                                            </td>
-                                        </tr>
+                                        @foreach ($mentor as $m)
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{ $m->nama }}</td>
+                                                <td>{{ $m->email }}</td>
+                                                <td>{{ $m->no_telp }}</td>
+                                                <td>{{ $m->jenis_kelamin }}</td>
+                                                <td>{{ $m->pendidikan }}</td>
+                                                <td>{{ $m->alamat }}</td>
+                                                <td>
+                                                    <a href="{{ route('mentor.show', $m->id) }}"
+                                                        class="btn btn-sm btn-info">Detail</a>
+                                                    <a href="{{ route('mentor.edit', $m->id) }}"
+                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="" class="btn btn-sm">
+                                                        <form action="{{ route('mentor.destroy', ['mentor' => $m->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger btn-sm me-2"><i
+                                                                    class="bi-trash"></i></button>
+                                                        </form>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
                                     </tbody>
                                 </table>
                                 <!-- End Table with stripped rows -->

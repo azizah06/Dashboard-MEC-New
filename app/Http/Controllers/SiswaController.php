@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pkt_kelas;
 use Illuminate\Http\Request;
 use App\Models\Siswa;
-
 use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
@@ -25,27 +25,41 @@ class SiswaController extends Controller
     public function create()
     {
         $siswa = Siswa::all();
-        return view('siswa.addSiswa', compact('siswa'));
+        $pkt_kelas = Pkt_kelas::all();
+        return view('siswa.addSiswa', compact('siswa', 'pkt_kelas'));
     }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // $messages = [
-        //     'required' => ':Attribute harus diisi.',
-        //     'email' => 'Isi :attribute dengan format yang benar',
-        //     'numeric' => 'Isi :attribute dengan angka'
-        // ];
-        // $validator = Validator::make($request->all(), [
-        //     'firstName' => 'required',
-        //     'lastName' => 'required',
-        //     'email' => 'required|email',
-        //     'age' => 'required|numeric',
-        // ], $messages);
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // }
+        $validator = Validator::make($request->all(), [
+            'kd_siswa' => 'required|unique:siswa',
+            'nama' => 'required',
+            'tgl_lahir' => 'required|date',
+            'no_telp' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'alamat' => 'required',
+            'pkt_kelas_id' => 'required|exists:pkt_kelas,id',
+        ],
+        [
+            'kd_siswa.required' => 'Kode Siswa harus diisi.',
+            'nama.required' => 'Nama Siswa harus diisi.',
+            'tgl_lahir.required' => 'Tanggal Lahir Siswa harus diisi.',
+            'no_telp.required' => 'Nomor Telepon harus diisi.',
+            'jenis_kelamin.required' => 'Jenis Kelamin Siswa harus diisi.',
+            'alamat.required' => 'Alamat Siswa harus diisi.',
+            'pkt_kelas.required' => 'Mohon isi paket kelas yang diinginkan.',
+
+            // Tambahkan pesan kustom untuk aturan validasi lainnya di sini
+        ]);
+
+        // $validator->messages()->add('firstName.required', 'Nama depan harus diisi.');
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         // ELOQUENT
         $siswa = new Siswa;
         $siswa->kd_siswa = $request->kd_siswa;
@@ -54,6 +68,7 @@ class SiswaController extends Controller
         $siswa->no_telp = $request->no_telp;
         $siswa->jenis_kelamin = $request->jenis_kelamin;
         $siswa->alamat = $request->alamat;
+        $siswa->pkt_kelas_id = $request->pkt_kelas_id;
         $siswa->save();
         return redirect()->route('siswa.index')->with('success', 'Data Siswa berhasil disimpan!');
     }
@@ -64,7 +79,7 @@ class SiswaController extends Controller
     public function show(string $id)
     {
         $siswa = Siswa::find($id);
-        return view('siswa.showSiswa', ['siswa' => $siswa]);
+        return view('siswa.showSiswa', compact('siswa'));
         // return view('siswa.EditSiswa', compact('siswa'));
     }
 
@@ -74,7 +89,8 @@ class SiswaController extends Controller
     public function edit(string $id)
     {
         $siswa = Siswa::find($id);
-        return view('siswa.EditSiswa', compact('siswa'));
+        $pkt_kelas = Pkt_kelas::all();
+        return view('siswa.EditSiswa', compact('siswa', 'pkt_kelas'));
     }
 
     /**
@@ -89,6 +105,7 @@ class SiswaController extends Controller
         $siswa->no_telp = $request->no_telp;
         $siswa->jenis_kelamin = $request->jenis_kelamin;
         $siswa->alamat = $request->alamat;
+        $siswa->pkt_kelas_id = $request->pkt_kelas_id;
         $siswa->save();
         return redirect()->route('siswa.index')->with('success', 'Data Siswa berhasil disimpan!');
     }
@@ -101,4 +118,5 @@ class SiswaController extends Controller
         Siswa::find($id)->delete();
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus.');
     }
+
 }

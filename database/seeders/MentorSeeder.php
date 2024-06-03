@@ -14,7 +14,8 @@ class MentorSeeder extends Seeder
     public function run(): void
     {
         DB::table('mentor')->insert([
-            ['kd_mentor' => 2001,
+            [
+            'kd_mentor' => 2001,
             'nama' => 'Najma',
             'email' => 'najma@gmail.com',
             'no_telp' => '089765456543',

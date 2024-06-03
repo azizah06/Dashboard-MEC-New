@@ -52,12 +52,9 @@
                                     <thead>
                                         <tr>
                                             <th>Ruangan</th>
-                                            <th>Kapasitas</th>
-                                            <th>Meja Mentor</th>
-                                            <th>Kursi Mentor</th>
-                                            <th>Meja Kursi Siswa</th>
-                                            <th>Kipas Angin</th>
-                                            <th>Papan Tulis</th>
+                                            <th>Kapasitas Siswa</th>
+                                            <th>Barang Baik</th>
+                                            <th>Barang Rusak</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -65,11 +62,8 @@
                                         <tr>
                                             <td>Ruangan 1</td>
                                             <td>28</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>28</td>
-                                            <td>1</td>
-                                            <td>1</td>
+                                            <td>27</td>
+                                            <td>2</td>
                                             <td>
                                                 <a href="" class="btn btn-sm btn-info">Detail</a>
                                                 <a href="" class="btn btn-sm btn-warning">Edit</a>

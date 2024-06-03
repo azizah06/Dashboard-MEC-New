@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
     @vite('resources/sass/app.scss')
+    @vite('resources/sass/app.scss')
 </head>
 
 <body>
@@ -16,14 +17,20 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-          <h1>Data Paket Bimbel</h1>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active">Data</li>
-            </ol>
-          </nav>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Data Mentor</h1>
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item active">Data Mentor</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 text-end d-flex flex-column justify-content-center">
+                    <a href="{{ route('paket_kelas.create') }}" class="btn btn-sm btn-primary px-3 ms-auto">Tambah</a>
+                </div>
+            </div>
         </div><!-- End Page Title -->
 
         <section class="section">
@@ -46,7 +53,6 @@
                     <!-- End Search Bar -->
 
                   <!-- Table with stripped rows -->
-                  <a href="{{route('paket_kelas.create')}}" class="btn btn-sm btn-primary mb-3">Tambah</a>
                   <table class="table datatable">
                     <thead>
                       <tr>
@@ -58,17 +64,28 @@
                       </tr>
                     </thead>
                     <tbody>
+                        @foreach ($pkt_kelas as $pk)
                         <tr>
-                            <td>1</td>
-                            <td>SKD Kedinasan Offline</td>
-                            <td>RP. 400.000</td>
-                            <td>74</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{$pk->nama_kelas}}</td>
+                            <td>RP. {{ number_format($pk->harga, 0, ',', '.') }}</td>
+                            <td>{{$pk->siswa_count}}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                <a href="" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ route('paket_kelas.show', $pk->id) }}" class="btn btn-sm btn-info">Detail</a>
+                                <a href="{{ route('paket_kelas.edit', $pk->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="" class="btn btn-sm">
+                                    <form action="{{ route('paket_kelas.destroy', $pk->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm me-2"><i class="bi-trash"></i></button>
+                                    </form>
+
+                                </a>
+
                                 <a href="" class="btn btn-sm btn-danger">Del</a>
                             </td>
                         </tr>
+                        @endforeach
 
                     </tbody>
                   </table>
@@ -86,6 +103,7 @@
     @endsection
 
     @vite('resources/js/app.js')
+    @vite('resources/js/main.js')
 </body>
 
 </html>
