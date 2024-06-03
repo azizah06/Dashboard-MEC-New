@@ -77,8 +77,7 @@
                                                 <td>{{ $s->alamat }}</td>
                                                 <td>
                                                     <a href="{{ route('siswa.show', $s->id) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Siswa"><i class="bi bi-eye"></i></a>
-                                                    <a href="{{ route('siswa.edit', $s->id) }}"
-                                                        class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
+                                                    <a href="{{ route('siswa.edit', $s->id) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="" class="btn btn-sm">
                                                         <form action="{{ route('siswa.destroy', ['siswa' => $s->id]) }}"
                                                             method="POST">

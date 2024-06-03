@@ -46,5 +46,5 @@ Route::resource('/transaksi', TransaksiController::class);
 // Rute untuk Sarana Prasarana
 Route::resource('/sarpra', SarpraController::class);
 
-// Rute untuk Sarana Prasarana
+// Rute untuk Profile
 Route::resource('/profile', ProfileController::class);
