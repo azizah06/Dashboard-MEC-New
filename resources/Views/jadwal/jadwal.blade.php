@@ -61,19 +61,21 @@
                       </tr>
                     </thead>
                     <tbody>
+                        @foreach ( $jadwal as $jadwalSiswa )
                         <tr>
                             <td>1</td>
-                            <td>Senin</td>
-                            <td>SKD Kedinasan Offline</td>
-                            <td>Nur Azizah Rosidah</td>
-                            <td>13.00 - 14.30</td>
-                            <td>Ruang 1</td>
+                            <td>{{ $jadwalSiswa->hari }}</td>
+                            <td>{{ $jadwalSiswa->kelas->nama_paket }}</td>
+                            <td>{{ $jadwalSiswa->mentor->nama }}</td>
+                            <td>{{ $jadwalSiswa->jam_mulai.' - '.$jadwalSiswa->jam_akhir }}</td>
+                            <td>{{ $jadwalSiswa->sarpras->kode_ruang }}</td>
                             <td>
                                 <a href="" class="btn btn-sm btn-info">Detail</a>
-                                <a href="" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ route('jadwal.edit',$jadwalSiswa->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <a href="" class="btn btn-sm btn-danger">Del</a>
                             </td>
                         </tr>
+                        @endforeach
 
                     </tbody>
                   </table>

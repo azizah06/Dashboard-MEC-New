@@ -252,7 +252,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+            <a class="nav-link collapsed" href="{{ route('Mentor.index') }}">
                 <i class="bi bi-grid"></i>
                 <span>Mentor</span>
             </a>
@@ -275,7 +275,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="">
+            <a class="nav-link collapsed" href="{{ route('transaksi.index') }}">
                 <i class="bi bi-grid"></i>
                 <span>Transaksi</span>
             </a>

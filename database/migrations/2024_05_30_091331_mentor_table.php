@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email');
             $table->string('no_telepon');
-            $table->foreignId('jenisKelamins')->constraint('jenis_kelamins');
+            $table->string('jenis_kelamin');
             $table->string('pendidikan');
             $table->string('alamat');
             $table->timestamps();

@@ -15,7 +15,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Jadwal</h1>
+                <h1>Edit Jadwal</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -31,28 +31,28 @@
                         <h5 class="card-title">Tambah Data Siswa</h5>
                         {{-- @foreach ( ) --}}
                             <!-- Floating Labels Form -->
-                        <form action="{{ route('jadwal.store') }}" class="row g-3" method="POST">
+                        <form action="{{ route('jadwal.update', $jadwal->id) }}" class="row g-3" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="col-md-4">
          {{-- FORM_KODE_JADWAL --}}
                                  <div class="form-floating">
-                                    <input type="text" class="form-control @error('kode') is-invaild @enderror
-                                    id="kd_jadwal" value="{{ old('kode') }}" placeholder="Kode Jadwal">
+                                    <input type="text" class="form-control
+                                    id="kd_jadwal" value="{{ $jadwal->kode_jadwal }}" placeholder="Kode Jadwal">
                                     <label for="kd_jadwal">Kode Jadwal</label>
-                                    @error('kode')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
+
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="hari" aria-label="State">
                                         <option selected>Pilih Hari...</option>
-                                        <option value="1">Senin</option>
-                                        <option value="2">Selasa</option>
-                                        <option value="2">Rabu</option>
-                                        <option value="2">Kamis</option>
-                                        <option value="2">Jumat</option>
+                                        <option value="Senin">{{ $jadwal->hari=='senin'?'selected':'' }}Senin</option>
+                                        <option value="Selasa">{{ $jadwal->hari=='selasa'?'selected':'' }}Selasa</option>
+                                        <option value="Rabu">{{ $jadwal->hari=='rabu'?'selected':'' }}Rabu</option>
+                                        <option value="Kamis">{{ $jadwal->hari=='Kamis'?'selected':'' }}Kamis</option>
+                                        <option value="Jumat">{{ $jadwal->hari=='jumat'?'selected':'' }}Jumat</option>
+
                                     </select>
                                     <label for="hari">Hari</label>
                                 </div>
@@ -61,13 +61,23 @@
                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="paket_kelas" aria-label="State">
-                                        @foreach ($Kelas as $kelass )
-                                            <option value="{{ $kelass->nama_paket}}" {{ old('kelas')==$kelass->nama_paket? 'selected': '' }}>
-                                                {{ $kelass->nama_paket }}</option>
-                                        @endforeach
-                                        @error('kelas')
-                                        <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
+                                        {{-- @php
+                                            $selected ='';
+                                            if($errors->any()){
+                                                $selected =old('Kelas');
+                                            }else{
+                                                $selected=$jadwal->Kelass;
+                                            }
+                                        @endphp
+                                        @foreach ($jadwal as $kelass )
+                                        <option value="{{ $kelass->Kelass}}" {{ old('kelas')==$kelass->Kelass? 'selected': '' }}>
+                                            {{ $kelass->Kelass }}</option> --}}
+                                    {{-- @endforeach --}}
+                                        {{-- @foreach ($kelas as $kelass )
+                                        <option value="{{ $kelass->id }}
+                                            {{ $selected ==$kelss->id ? 'selected':''}}"> {{ $kelass->nama_paket }}</option>
+
+                                        @endforeach --}}
 
                                     </select>
                                     <label for="paket_kelas">Paket Kelas</label>
@@ -78,13 +88,13 @@
                                 <div class="form-floating mb-3">
                                     <select class="form-select " id="mentor" aria-label="State">
                                         <option selected>Pilih Mentor...</option>
-                                        @foreach ($mentor as $mentors )
+                                        {{-- @foreach ($mentor as $mentors )
                                             <option value="{{ $mentors->id }}" {{ old('mentors_id')==$mentors->id? 'selected':'' }}>
                                             {{ $mentors->nama }}</option>
                                         @endforeach
                                         @error('Mentor')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
+                                    @enderror --}}
 
                                     </select>
                                     <label for="mentor">Mentor</label>
@@ -95,13 +105,13 @@
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="mentor" aria-label="State">
                                         <option selected>Pilih Ruangan...</option>
-                                        @foreach ($Sarpras as $Sarprass )
+                                        {{-- @foreach ($Sarpras as $Sarprass )
                                             <option value="{{ $Sarprass->id }}" {{ old('mentor')==$Sarprass->id? 'selected':'' }}>
                                             {{ $Sarprass->kode_ruang }}</option>
                                         @endforeach
                                         @error('ruangan')
                                         <div class="text-danger"><small>{{ $message }}</small></div>
-                                    @enderror
+                                    @enderror --}}
                                     </select>
                                     <label for="mentor">Ruangan</label>
                                 </div>

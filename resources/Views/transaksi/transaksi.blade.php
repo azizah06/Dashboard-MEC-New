@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>{{ $pageTitle }}</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -61,19 +61,31 @@
                       </tr>
                     </thead>
                     <tbody>
+                        @foreach ($transaksi as $Transaksi )
                         <tr>
-                            <td>1</td>
-                            <td>JAN012401</td>
-                            <td>Nur Azizah Rosidah</td>
-                            <td>SKD Kedinasan Offline</td>
-                            <td>01 Jan 2024</td>
+                            <td>{{ $Transaksi->id }}</td>
+                            <td>{{ $Transaksi->kode_bayar }}</td>
+                            <td>{{ $Transaksi->siswass_id }}</td>
+                            <td>{{ $Transaksi->kelas_id }}</td>
+                            <td>{{ $Transaksi->tanggal_bayar }}</td>
                             <td><img src="" alt="Bukti Pembayaran"></td>
                             <td>
-                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="" class="btn btn-sm btn-danger">Del</a>
+                                <a href="{{ route('transaksi.show',['transaksi'=>$Transaksi->id]) }}" class="btn btn-sm btn-info">Detail</a>
+                                <a href="{{ route('transaksi.edit',['transaksi'=>$Transaksi->id]) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="" class="btn btn-sm">
+                                    <form action="{{ route('transaksi.destroy', ['transaksi' => $Transaksi->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit"
+                                            class="btn btn-outline-danger btn-sm me-2"><i
+                                                class="bi-trash"></i>DELETE</button>
+
+
                             </td>
                         </tr>
+                        @endforeach
+
 
                     </tbody>
                   </table>

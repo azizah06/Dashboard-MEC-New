@@ -15,7 +15,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Transaksi</h1>
+                <h1>Detail Transaksi</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -33,37 +33,31 @@
                         <!-- Floating Labels Form -->
                         <form class="row g-3">
                             <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="kd_bayar" placeholder="Your Name">
-                                    <label for="kd_bayar">Kode Bayar</label>
+                                <div class="col-md-12 mb-3">
+
+                                    <label for="kd_bayar" class="form-label">Kode Bayar</label>
+                                    <h5>{{ $transaksi->kode_bayar }}</h5>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="kd_bayar" placeholder="Your Name">
+                                <div class="col-md-12 mb-3">
                                     <label for="siswa">Siswa</label>
+                                    <h5>{{ $transaksi->siswass_id }}</h5>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="paket_kelas" aria-label="State">
-                                        <option selected>Pilih Paket Kelas...</option>
-                                        @foreach ($kelas as $kelass )
-                                        <option value="{{ $kelass->nama_paket}}" {{ old('kelas')==$kelass->nama_paket? 'selected': '' }}>
-                                            {{ $kelass->nama_paket }}</option>
-                                    @endforeach
-
-                                    </select>
-                                    <label for="paket_kelas">Paket Kelas</label>
+                                <div class="col-md-12 mb-3">
+                                    <label for="siswa">Paket kelas</label>
+                                    <h5>{{ $transaksi->kelas_id }}</h5>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input type="date" class="form-control" id="tgl_bayar" placeholder="Your Name">
+                                <div class="col-md-12 mb-3">
                                     <label for="tgl_bayar">Tanggal Bayar</label>
+                                    <h5>{{ $transaksi->tanggal_bayar }}</h5>
                                 </div>
                             </div>
 

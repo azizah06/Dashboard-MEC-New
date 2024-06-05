@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>{{ $pageTitle }}</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -43,11 +43,12 @@
                                     </div>
                                 </div>
                                 <!-- Table with stripped rows -->
-                                <a href="{{route('mentor.create')}}" class="btn btn-sm btn-primary mb-3">Tambah</a>
+                                <a href="{{route('Mentor.create')}}" class="btn btn-sm btn-primary mb-3">Tambah</a>
 
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
+                                            <th>Kode Mentor</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>No Telp</th>
@@ -58,19 +59,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($mentor as $Mentors )
                                         <tr>
-                                            <td>Nur Azizah Rosidah</td>
-                                            <td>nur@gmail.com</td>
-                                            <td>093212346529</td>
-                                            <td>Perempuan</td>
-                                            <td>S1 Sistem Informasi</td>
-                                            <td>Malang Raya</td>
-                                            <td>
-                                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                                <a href="" class="btn btn-sm btn-danger">Del</a>
-                                            </td>
-                                        </tr>
+                                                <td>{{ $Mentors->kode_mentor }}</td>
+                                                <td>{{ $Mentors->nama }}</td>
+                                                <td>{{ $Mentors->email }}</td>
+                                                <td>{{ $Mentors->no_telepon }}</td>
+                                                <td>{{ $Mentors->jenis_kelamin }}</td>
+                                                <td>{{ $Mentors->pendidikan }}</td>
+                                                <td>{{ $Mentors->alamat }}</td>
+                                                <td>
+                                                    <a href="" class="btn btn-sm btn-info">Detail</a>
+                                                    <a href="" class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="" class="btn btn-sm btn-danger">Del</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
                                     </tbody>
                                 </table>
                                 <!-- End Table with stripped rows -->

@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         jadwalSeeder::class,
         KelasSeeder::class,
         mentorSeeder::class,
-        SarprasSeeder::class
+        SarprasSeeder::class,
+        transaksiSeeder::class
        ]);
     }
 }

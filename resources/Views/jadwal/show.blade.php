@@ -15,7 +15,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Jadwal</h1>
+                <h1>Tampilan Jadwal</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -35,7 +35,7 @@
                             @csrf
                             <div class="col-md-4">
          {{-- FORM_KODE_JADWAL --}}
-                                 <div class="form-floating">
+                             <div class="form-floating">
                                     <input type="text" class="form-control @error('kode') is-invaild @enderror
                                     id="kd_jadwal" value="{{ old('kode') }}" placeholder="Kode Jadwal">
                                     <label for="kd_jadwal">Kode Jadwal</label>
@@ -44,15 +44,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="hari" aria-label="State">
                                         <option selected>Pilih Hari...</option>
                                         <option value="1">Senin</option>
                                         <option value="2">Selasa</option>
-                                        <option value="2">Rabu</option>
-                                        <option value="2">Kamis</option>
-                                        <option value="2">Jumat</option>
                                     </select>
                                     <label for="hari">Hari</label>
                                 </div>
@@ -61,7 +58,7 @@
                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="paket_kelas" aria-label="State">
-                                        @foreach ($Kelas as $kelass )
+                                        @foreach ($kelas as $kelass )
                                             <option value="{{ $kelass->nama_paket}}" {{ old('kelas')==$kelass->nama_paket? 'selected': '' }}>
                                                 {{ $kelass->nama_paket }}</option>
                                         @endforeach

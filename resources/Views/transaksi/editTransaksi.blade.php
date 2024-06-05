@@ -15,7 +15,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Transaksi</h1>
+                <h1>Edit Transaksi</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -31,17 +31,19 @@
                         {{-- <h5 class="card-title">Tambah Data Siswa</h5> --}}
 
                         <!-- Floating Labels Form -->
-                        <form class="row g-3">
+                        <form class="row g-3" action="{{ route('transaksi.update',['transaksi'=>$transaksi->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="kd_bayar" placeholder="Your Name">
+                                    <input type="text" value="{{ $transaksi->kode_bayar }}" class="form-control" id="kd_bayar" placeholder="Your Name">
                                     <label for="kd_bayar">Kode Bayar</label>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="kd_bayar" placeholder="Your Name">
+                                    <input type="text" value="{{ $transaksi->siswass_id }}" class="form-control" id="kd_bayar" placeholder="Your Name">
                                     <label for="siswa">Siswa</label>
                                 </div>
                             </div>
@@ -50,10 +52,10 @@
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="paket_kelas" aria-label="State">
                                         <option selected>Pilih Paket Kelas...</option>
-                                        @foreach ($kelas as $kelass )
-                                        <option value="{{ $kelass->nama_paket}}" {{ old('kelas')==$kelass->nama_paket? 'selected': '' }}>
+                                        {{-- @foreach ($transaksi as $kelass )
+                                        <option value="{{ $kelass->sisw}}" {{ old('kelas')==$kelass->nama_paket? 'selected': '' }}>
                                             {{ $kelass->nama_paket }}</option>
-                                    @endforeach
+                                    @endforeach --}}
 
                                     </select>
                                     <label for="paket_kelas">Paket Kelas</label>
@@ -62,7 +64,7 @@
 
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="date" class="form-control" id="tgl_bayar" placeholder="Your Name">
+                                    <input type="date" value="{{$transaksi->tanggal_bayar}}" class="form-control" id="tgl_bayar" placeholder="Your Name">
                                     <label for="tgl_bayar">Tanggal Bayar</label>
                                 </div>
                             </div>

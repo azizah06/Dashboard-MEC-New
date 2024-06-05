@@ -19,7 +19,7 @@ class mentorSeeder extends Seeder
                 'nama'=>'Aru Maul',
                 'email'=> 'game@game.com',
                 'no_telepon'=>'081332003',
-                'jenisKelamins'=>1,
+                'jenis_kelamin'=>'Pria',
                 'pendidikan'=>'Sarjana',
                 'alamat'=>'jalan durian runtuh'
             ],
@@ -28,7 +28,7 @@ class mentorSeeder extends Seeder
                 'nama'=>'Ahmad Ridho',
                 'email'=> 'game@admin.com',
                 'no_telepon'=>'088238382910',
-                'jenisKelamins'=>1,
+                'jenis_kelamin'=>'Pria',
                 'pendidikan'=>'Sarjana',
                 'alamat'=>'jalanin aja dulu'
             ],
@@ -37,7 +37,7 @@ class mentorSeeder extends Seeder
                 'nama'=>'Bintang Andi Perkoso',
                 'email'=> 'main@admin.com',
                 'no_telepon'=>'0832399443',
-                'jenisKelamins'=>1,
+                'jenis_kelamin'=>'Pria',
                 'pendidikan'=>'Sarjana',
                 'alamat'=>'jalan margorejo'
             ],
@@ -46,7 +46,7 @@ class mentorSeeder extends Seeder
                 'nama'=>'Resti Anggraini',
                 'email'=> 'main@gmail.com',
                 'no_telepon'=>'089234493',
-                'jenisKelamins'=>2,
+                'jenis_kelamin'=>'Wanita',
                 'pendidikan'=>'Magister',
                 'alamat'=>'jalan Merr'
             ],

@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('kode_bayar')->unique();
             $table->foreignId('siswass_id')->constrained('siswa');
             $table->foreignId('kelas_id')->constrained('kelas');
-            $table->string('nama_siswa');
-            $table->string('paket_kelas');
+
+
             $table->date('tanggal_bayar');
-            $table->decimal('bukti_pembayaran');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>{{ $pageTitle }}</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -31,7 +31,8 @@
                         {{-- <h5 class="card-title">Tambah Data Siswa</h5> --}}
 
                         <!-- Floating Labels Form -->
-                        <form class="row g-3">
+                        <form class="row g-3" action="{{ route('Mentor.store') }}" method="POST">
+                            @csrf
                             <div class="col-md-4">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="kd_mentor" placeholder="Your Name">
