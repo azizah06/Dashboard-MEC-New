@@ -18,13 +18,13 @@ class SiswaFactory extends Factory
     public function definition(): array
     {
         return [
-            'kd_pkt_kelas' => fake()->unique()->randomNumber(8),
-
-            'nama' => fake()->name,
-            'tgl_lahir' => fake()->date(),
-            'jenis_kelamin' => fake()->randomElement(['Laki-laki', 'Perempuan']),
-            'alamat' => fake()->address,
-            'no_telp' => fake()->randomNumber(9)
+            'kd_siswa' => $this->faker->unique()->randomNumber(8),
+            'nama' => $this->faker->name,
+            'tgl_lahir' => $this->faker->date(),
+            'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
+            'alamat' => $this->faker->address,
+            'no_telp' => $this->faker->randomNumber(9),
+            'pkt_kelas_id' => rand(1,3)
 
         ];
     }

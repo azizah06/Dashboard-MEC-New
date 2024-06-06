@@ -71,8 +71,8 @@
                             <td>RP. {{ number_format($pk->harga, 0, ',', '.') }}</td>
                             <td>{{$pk->siswa_count}}</td>
                             <td>
-                                <a href="{{ route('paket_kelas.show', $pk->id) }}" class="btn btn-sm btn-info">Detail</a>
-                                <a href="{{ route('paket_kelas.edit', $pk->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ route('paket_kelas.show', $pk->id) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Siswa"><i class="bi bi-eye"></i></a>
+                                <a href="{{ route('paket_kelas.edit', $pk->id) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
                                 <a href="" class="btn btn-sm">
                                     <form action="{{ route('paket_kelas.destroy', $pk->id) }}" method="POST">
                                         @csrf
@@ -82,7 +82,6 @@
 
                                 </a>
 
-                                <a href="" class="btn btn-sm btn-danger">Del</a>
                             </td>
                         </tr>
                         @endforeach

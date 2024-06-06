@@ -14,16 +14,17 @@ class SiswaSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('siswa')->insert([
-            [
-            'kd_siswa' => '1200',
-            'nama' => 'Nur Azizah Rosidah',
-            'tgl_lahir' => '2020-05-01',
-            'no_telp' => '0895077745',
-            'jenis_kelamin' => 'Perempuan',
-            'alamat' => 'Surabaya',
-            'pkt_kelas_id' => '1'
-            ]
-            ]);
+        Siswa::factory()->count(3)->create();
+        // DB::table('siswa')->insert([
+        //     [
+        //     'kd_siswa' => '1200',
+        //     'nama' => 'Nur Azizah Rosidah',
+        //     'tgl_lahir' => '2020-05-01',
+        //     'no_telp' => '0895077745',
+        //     'jenis_kelamin' => 'Perempuan',
+        //     'alamat' => 'Surabaya',
+        //     'pkt_kelas_id' => '1'
+        //     ]
+        //     ]);
     }
 }

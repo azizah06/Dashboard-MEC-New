@@ -14,14 +14,15 @@ class Pkt_kelasSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('pkt_kelas')->insert([
-            [
-            'kd_pkt_kelas' => '1200',
-            'nama_kelas' => 'SKD Kedinasan online',
-            'harga' => '50000'
+        Pkt_kelas::factory()->count(3)->create();
+        // DB::table('pkt_kelas')->insert([
+        //     [
+        //     'kd_pkt_kelas' => '1200',
+        //     'nama_kelas' => 'SKD Kedinasan online',
+        //     'harga' => '50000'
 
-            ]
-            ]);
+        //     ]
+        //     ]);
     }
 }
 

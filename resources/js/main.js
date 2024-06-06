@@ -6,6 +6,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
+console.log("halo")
 (function() {
   "use strict";
 
@@ -316,6 +317,6 @@
     }, 200);
   }
 
-  
+
 
 })();

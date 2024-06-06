@@ -15,14 +15,21 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Data Sarana Prasarana</h1>
-                <nav>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">Tables</li>
-                        <li class="breadcrumb-item active">Data</li>
-                    </ol>
-                </nav>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Data Sarpra</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Data Sarana Prasarana</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-end d-flex flex-column justify-content-center">
+                        <a href="{{ route('mentor.create') }}" class="btn btn-sm btn-primary px-3 ms-auto">Tambah</a>
+                    </div>
+                </div>
+
             </div><!-- End Page Title -->
 
             <section class="section">
@@ -47,10 +54,11 @@
                                 <!-- End Search Bar -->
 
                                 <!-- Table with stripped rows -->
-                                <a href="{{ route('sarpra.create') }}" class="btn btn-sm btn-primary mb-3 px-3">Tambah</a>
+
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Ruangan</th>
                                             <th>Kapasitas Siswa</th>
                                             <th>Barang Baik</th>
@@ -59,17 +67,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($sarpra as $key => $sp)
                                         <tr>
-                                            <td>Ruangan 1</td>
-                                            <td>28</td>
-                                            <td>27</td>
-                                            <td>2</td>
-                                            <td>
-                                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                                <a href="" class="btn btn-sm btn-danger">Del</a>
+                                            <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $sp->nama_ruangan }}</td>
+                                                <td>{{ $sp->kapasitas }}</td>
+                                                <td>{{ $sp->jmlh_baik }}</td>
+                                                <td>{{ $sp->jmlh_rusak }}</td>
+                                                <td>
+                                                <a href="{{ route('sarpra.show', $sp->id) }}" class="btn btn-sm btn-outline-primary"data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Sarpra"><i class="bi bi-eye"></i></a>
+                                                <a href="{{ route('sarpra.edit', $sp->id) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
+                                                <a href="" class="btn btn-sm">
+                                                    <form action="{{ route('sarpra.destroy', ['sarpra' => $sp->id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger btn-sm me-2"><i
+                                                                class="bi-trash"></i></button>
+                                                    </form>
+                                                </a>
                                             </td>
                                         </tr>
+                                        @endforeach
 
                                     </tbody>
                                 </table>

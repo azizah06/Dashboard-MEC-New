@@ -70,7 +70,7 @@
                                     <tbody>
                                         @foreach ($mentor as $m)
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $m->nama }}</td>
                                                 <td>{{ $m->email }}</td>
                                                 <td>{{ $m->no_telp }}</td>
@@ -78,10 +78,8 @@
                                                 <td>{{ $m->pendidikan }}</td>
                                                 <td>{{ $m->alamat }}</td>
                                                 <td>
-                                                    <a href="{{ route('mentor.show', $m->id) }}"
-                                                        class="btn btn-sm btn-info">Detail</a>
-                                                    <a href="{{ route('mentor.edit', $m->id) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
+                                                    <a href="{{ route('mentor.show', $m->id) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Siswa"><i class="bi bi-eye"></i></a>
+                                                    <a href="{{ route('mentor.edit', $m->id) }}"  class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="" class="btn btn-sm">
                                                         <form action="{{ route('mentor.destroy', ['mentor' => $m->id]) }}"
                                                             method="POST">

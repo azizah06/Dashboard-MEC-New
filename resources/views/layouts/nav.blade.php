@@ -1,5 +1,6 @@
 @php
     $currentRouteName = Route::currentRouteName();
+    // dd($currentRouteName);
 @endphp
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
@@ -7,7 +8,6 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">NiceAdmin</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -231,7 +231,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('dashboard') }}">
+            <a class="nav-link @if($currentRouteName != "dashboard") collapsed @else '' @endif" href="{{ route('dashboard') }}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -240,14 +240,14 @@
         <li class="nav-heading">Data User</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('siswa.index') }}">
+            <a class="nav-link @if($currentRouteName != "siswa.index") collapsed @else '' @endif" href="{{ route('siswa.index') }}">
                 <i class="bi bi-mortarboard"></i>
                 <span>Siswa</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('mentor.index') }}">
+            <a class="nav-link @if($currentRouteName != "mentor.index") collapsed @else '' @endif" href="{{ route('mentor.index') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Mentor</span>
             </a>
@@ -256,14 +256,14 @@
         <li class="nav-heading">Activity</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('paket_kelas.index') }}">
+            <a class="nav-link @if($currentRouteName != "paket_kelas.index") collapsed @else '' @endif" href="{{ route('paket_kelas.index') }}">
                 <i class="bi bi-boxes"></i>
                 <span>Paket Kelas</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('jadwal.index') }}">
+            <a class="nav-link @if($currentRouteName != "mentor.index") collapsed @else '' @endif" href="{{ route('jadwal.index') }}">
                 <i class="bi bi-calendar-event"></i>
                 <span>Jadwal</span>
             </a>
