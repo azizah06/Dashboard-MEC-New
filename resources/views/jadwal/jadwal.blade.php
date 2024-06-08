@@ -5,89 +5,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <title>Dashboard MEC</title>
     @vite('resources/sass/app.scss')
 </head>
 
 <body>
     @extends('layouts.app')
     @section('content')
+        @push('scripts')
+            <script type="module">
+                $(document).ready(function() {
+                    $('#jadwalTable').DataTable();
+                    $(".datatable").on("click", ".btn-delete", function(e) {
+                        e.preventDefault();
 
-    <main id="main" class="main">
+                        var form = $(this).closest("form");
+                        var name = $(this).data("name");
 
-        <div class="pagetitle">
-          <h1>Jadwal Kelas</h1>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active">Data</li>
-            </ol>
-          </nav>
-        </div><!-- End Page Title -->
+                        Swal.fire({
+                            title: "Are you sure want to delete\n" + name + "?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "bg-primary",
+                            confirmButtonText: "Yes, delete it!",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
 
-        <section class="section">
-          <div class="row">
-            <div class="col-lg-12">
+        <main id="main" class="main">
 
-              <div class="card">
-                <div class="card-body">
-
-                    <!-- Search Bar -->
-                    <div class="search-bar d-flex">
-                        <form class="search-form" method="POST" action="#">
-                            <input class="rounded-3 border-1 p-1 ps-3" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                            <button class="border-0 btn btn-transparent" type="submit" title="Search"><i class="bi bi-search"></i></button>
-                        </form>
-                        <div class="mb-4 ms-auto">
-                            <button class="btn btn-sm btn-info" onclick="importExcel()">Import Excel</button>
+            <div class="pagetitle">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Jadwal Bimbel</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Jadwal Bimbel</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-end d-flex flex-column justify-content-center">
+                        <div class="d-flex ms-auto">
+                            <a href="{{ route('jadwal.create') }}" class="btn btn-sm btn-primary px-3 ms-auto me-2">Tambah</a>
+                            <a href="{{ route('jadwal.exportExcels') }}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
                         </div>
                     </div>
-                    <!-- End Search Bar -->
-
-                    <a href="{{ route('jadwal.create') }}" class="btn btn-sm btn-primary mb-3 px-3">Tambah</a>
-
-                  <!-- Table with stripped rows -->
-                  <table class="table datatable">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Hari</th>
-                        <th>Paket Kelas</th>
-                        <th>Mentor</th>
-                        <th>Waktu</th>
-                        <th>Ruangan</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Senin</td>
-                            <td>SKD Kedinasan Offline</td>
-                            <td>Nur Azizah Rosidah</td>
-                            <td>13.00 - 14.30</td>
-                            <td>Ruang 1</td>
-                            <td>
-                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="" class="btn btn-sm btn-danger">Del</a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                  </table>
-                  <!-- End Table with stripped rows -->
-
                 </div>
-              </div>
+            </div><!-- End Page Title -->
 
-            </div>
-          </div>
-        </section>
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
 
-      </main><!-- End #main -->
+                        <div class="card">
+                            <div class="card-body">
 
+
+                                <!-- Table with stripped rows -->
+                                <table class="table datatable table-bordered " style="width:100%" id="jadwalTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Hari</th>
+                                            <th>Paket Kelas</th>
+                                            <th>Mentor</th>
+                                            <th>Waktu</th>
+                                            <th>Ruangan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($jadwal as $key => $j)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $j->hari }}</td>
+                                                <td>{{ $j->pkt_kelas->nama_kelas }}</td>
+                                                <td>{{ $j->mentor->nama }}</td>
+                                                <td>{{ $j->jam_mulai . ' - ' . $j->jam_akhir }}</td>
+                                                <td>{{ $j->sarpra->nama_ruangan }}</td>
+                                                <td>
+                                                    <a href="{{ route('jadwal.show', $j->id) }}"
+                                                        class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Detail Jadwal"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <a href="{{ route('jadwal.edit', $j->id) }}"
+                                                        class="btn btn-sm btn-outline-warning"><i
+                                                            class="bi bi-pencil-square"></i></a>
+                                                    <a href="" class="btn btn-sm">
+                                                        <form action="{{ route('jadwal.destroy', ['jadwal' => $j->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger btn-sm me-2 btn-delete"
+                                                                data-name="{{ $j->id . ' ' . $j->kd_jadwal }}"><i
+                                                                    class="bi-trash"></i></button>
+                                                        </form>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <!-- End Table with stripped rows -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main><!-- End #main -->
     @endsection
 
     @vite('resources/js/app.js')

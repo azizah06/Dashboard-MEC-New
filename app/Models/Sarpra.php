@@ -22,4 +22,9 @@ class Sarpra extends Model
         'papan_tulis',
         'keterangan',
     ];
+
+    public function jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

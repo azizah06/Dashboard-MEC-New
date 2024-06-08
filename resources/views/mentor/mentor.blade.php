@@ -12,6 +12,32 @@
 <body>
     @extends('layouts.app')
     @section('content')
+    @push('scripts')
+        <script type="module">
+            $(document).ready(function() {
+                $('#mentorTable').DataTable();
+                $(".datatable").on("click", ".btn-delete", function(e) {
+                    e.preventDefault();
+
+                    var form = $(this).closest("form");
+                    var name = $(this).data("name");
+
+                    Swal.fire({
+                        title: "Hapus\n" + name + "?",
+                        text: "Apakah Anda yakin ingin menghapus data ini?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "bg-primary",
+                        confirmButtonText: "Ya, Hapus Data ini!",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush
         <main id="main" class="main">
 
             <div class="pagetitle">
@@ -26,10 +52,12 @@
                         </nav>
                     </div>
                     <div class="col-md-6 text-end d-flex flex-column justify-content-center">
-                        <a href="{{ route('mentor.create') }}" class="btn btn-sm btn-primary px-3 ms-auto">Tambah</a>
+                        <div class="d-flex ms-auto">
+                            <a href="{{ route('mentor.create') }}" class="btn btn-sm btn-primary px-3 me-2"><i class="bi bi-person-add"></i> Tambah Data</a>
+                            <a href="{{ route('mentor.exportExcels') }}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
+                        </div>
                     </div>
                 </div>
-
             </div><!-- End Page Title -->
 
             <section class="section">
@@ -39,57 +67,43 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <!-- Search Bar -->
-                                <div class="search-bar d-flex">
-                                    <div class="search-bar border-2">
-                                        <form class="search-form d-flex align-items-center " method="POST" action="#">
-                                            <input class="border-0" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                                            <button class="border-0 bg-light" type="submit" title="Search"><i class="bi bi-search"></i></button>
-                                        </form>
-                                    </div><!-- End Search Bar -->
-                                    <div class="mb-4 ms-auto">
-                                        <button class="btn btn-sm btn-info" onclick="importExcel()">Import Excel</button>
-                                    </div>
-                                </div>
-                                <!-- End Search Bar -->
 
                                 <!-- Table with stripped rows -->
-                                <table class="table datatable">
+                                <table class="table datatable table-hover mb-0 " style="width:73%" id="mentorTable">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>No Telp</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Pendidikan</th>
-                                            <th>Alamat</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">No Telp</th>
+                                            <th class="text-center" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Jenis Kelamin</th>
+                                            {{-- <th class="text-center">Alamat</th> --}}
+                                            {{-- <th>Alamat</th> --}}
+                                            <th class="text-nowrap text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($mentor as $m)
+                                        @foreach ($mentor as $key => $m)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $m->nama }}</td>
-                                                <td>{{ $m->email }}</td>
-                                                <td>{{ $m->no_telp }}</td>
-                                                <td>{{ $m->jenis_kelamin }}</td>
-                                                <td>{{ $m->pendidikan }}</td>
-                                                <td>{{ $m->alamat }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $m->nama }}</td>
+                                                <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $m->email }}</td>
+                                                <td class="text-center" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $m->no_telp }}</td>
+                                                <td >{{ $m->jenis_kelamin }}</td>
+                                                {{-- <td style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $m->alamat }}</td> --}}
+                                                {{-- <td>{{ $m->pendidikan }}</td> --}}
+                                                <td class="text-nowrap me-4">
                                                     <a href="{{ route('mentor.show', $m->id) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Siswa"><i class="bi bi-eye"></i></a>
                                                     <a href="{{ route('mentor.edit', $m->id) }}"  class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
-                                                    <a href="" class="btn btn-sm">
                                                         <form action="{{ route('mentor.destroy', ['mentor' => $m->id]) }}"
-                                                            method="POST">
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
                                                             <button type="submit"
-                                                                class="btn btn-outline-danger btn-sm me-2"><i
+                                                                class="btn btn-outline-danger btn-sm me-2 btn-delete" data-name="{{ $m->id . ' ' . $m->nama }}"><i
                                                                     class="bi-trash"></i></button>
                                                         </form>
-                                                    </a>
+
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -31,55 +31,83 @@
                         {{-- <h5 class="card-title">Tambah Data Siswa</h5> --}}
 
                         <!-- Floating Labels Form -->
-                        <form class="row g-3">
+                        <form class="row g-3" action="{{ route('transaksi.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="kd_bayar" placeholder="Your Name">
+                                    <input name="kd_bayar" type="text"
+                                        class="form-control @error('kd_bayar') is-invalid @enderror" id="kd_bayar"
+                                        placeholder="Your Name" value="{{ old('kd_bayar') }}">
                                     <label for="kd_bayar">Kode Bayar</label>
+                                    @error('kd_bayar')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="siswa" aria-label="State">
+                                    <select name="siswa_id" class="form-control @error('siswa_id') is-invalid @enderror"
+                                        id="exampleSelectBorder">
                                         <option selected>Pilih Siswa...</option>
-                                        <option value="1">Nur Azizah Rosidah</option>
-                                        <option value="2">Najma Makassar</option>
+                                        @foreach ($siswa as $s)
+                                            <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                                        @endforeach
                                     </select>
-                                    <label for="siswa">Siswa</label>
+                                    <label for="floatingSelect">Nama Siswa</label>
+                                    @error('siswa_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="paket_kelas" aria-label="State">
+                                    <select name="pkt_kls_id"
+                                        class="form-control @error('pkt_kls_id') is-invalid @enderror"
+                                        id="exampleSelectBorder">
                                         <option selected>Pilih Paket Kelas...</option>
-                                        <option value="1">SKD Kedinasan Offline</option>
-                                        <option value="2">Psikotes Offline</option>
+                                        @foreach ($pkt_kelas as $pk)
+                                            <option value="{{ $pk->id }}">{{ $pk->nama_kelas }}</option>
+                                        @endforeach
                                     </select>
-                                    <label for="paket_kelas">Paket Kelas</label>
+                                    <label for="floatingSelect">Paket Kelas</label>
+                                    @error('pkt_kls_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="date" class="form-control" id="tgl_bayar" placeholder="Your Name">
+                                    <input type="date" name="tgl_bayar"
+                                        class="form-control @error('tgl_bayar') is-invalid @enderror" id="tgl_bayar"
+                                        placeholder="Your Name" value="{{ old('tgl_bayar') }}">
                                     <label for="tgl_bayar">Tanggal Bayar</label>
+                                    @error('tgl_bayar')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="file" class="form-control" id="bukti_bayar" placeholder="Your Name">
+                                    <input type="file" name="bukti_bayar"
+                                        class="form-control @error('bukti_bayar') is-invalid @enderror" id="bukti_bayar"
+                                        placeholder="Your Name" value="{{ old('bukti_bayar') }}"  accept="image/*">
                                     <label for="bukti_bayar">Bukti Pembayaran</label>
+                                    @error('bukti_bayar')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('transaksi.index')}}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
-                        </form><!-- End floating Labels Form -->
+                        </form>
+                        <!-- End floating Labels Form -->
 
                     </div>
                 </div>

@@ -36,21 +36,35 @@
                             @method('PUT')
                             <div class="col-md-2">
                                 <div class="form-floating">
-                                    <input type="text" value="{{$pkt_kelas->kd_pkt_kelas}}" name="kd_pkt_kelas" class="form-control" id="kd_pkt_kelas" placeholder="Your Name" readonly>
+                                    <input type="text" value="{{ old('kd_pkt_kelas', $pkt_kelas->kd_pkt_kelas) }}"
+                                        name="kd_pkt_kelas" class="form-control @error('kd_pkt_kelas') is-invalid @enderror"
+                                        id="kd_pkt_kelas" placeholder="Your Name" readonly>
                                     <label for="kd_pkt_kelas">Kode Paket Kelas</label>
+                                    @error('kd_pkt_kelas')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" value="{{$pkt_kelas->nama_kelas}}" name="nama_kelas" class="form-control" id="nama" placeholder="Your Name">
+                                    <input type="text" value="{{ old('nama_kelas', $pkt_kelas->nama_kelas) }}"
+                                        name="nama_kelas" class="form-control @error('nama_kelas') is-invalid @enderror"
+                                        id="nama" placeholder="Your Name">
                                     <label for="nama">Nama Paket</label>
+                                    @error('nama_kelas')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="number" value="{{ $pkt_kelas->harga }}" name="harga" class="form-control" id="harga" placeholder="Your Email">
-
+                                    <input type="number" value="{{ old('harga', $pkt_kelas->harga) }}" name="harga"
+                                        class="form-control @error('harga') is-invalid @enderror" id="harga"
+                                        placeholder="Your Email">
                                     <label for="harga">Harga</label>
+                                    @error('harga')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -58,7 +72,8 @@
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                                 <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
-                        </form><!-- End floating Labels Form -->
+                        </form>
+                        <!-- End floating Labels Form -->
 
                     </div>
                 </div>

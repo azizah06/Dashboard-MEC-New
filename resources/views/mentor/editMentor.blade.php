@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard MEC</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -39,23 +32,34 @@
                                     <label for="kd_mentor">Kode Mentor</label>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" value="{{$mentor->nama}}" name="nama" class="form-control" id="nama" placeholder="Your Name">
+                                    <input type="text" value="{{ old('nama', $mentor->nama) }}" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Your Name">
                                     <label for="nama">Nama Lengkap</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" value="{{$mentor->email}}" name="email" class="form-control" id="email" placeholder="Your Name">
-                                    <label for="email">Email</label>
+                                    @error('nama')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="number" value="{{$mentor->no_telp}}" name="no_telp" class="form-control" id="no_telp" placeholder="Your Email">
+                                    <input type="text" value="{{ old('email', $mentor->email) }}" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Your Email">
+                                    <label for="email">Email</label>
+                                    @error('email')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" value="{{ old('no_telp', $mentor->no_telp) }}" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="Your Phone Number">
                                     <label for="no_telp">No Telp</label>
+                                    @error('no_telp')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -71,15 +75,21 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" value="{{$mentor->pendidikan}}" name="pendidikan" class="form-control" id="pendidikan" placeholder="Your Email">
+                                    <input type="text" value="{{ old('pendidikan', $mentor->pendidikan) }}" name="pendidikan" class="form-control @error('pendidikan') is-invalid @enderror" id="pendidikan" placeholder="Your Education">
                                     <label for="pendidikan">Pendidikan</label>
+                                    @error('pendidikan')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <textarea class="form-control" name="alamat" placeholder="Address" id="alamat" style="height: 100px;">{{$mentor->alamat}}</textarea>
+                                    <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Address" id="alamat" style="height: 100px;">{{ old('alamat', $mentor->alamat) }}</textarea>
                                     <label for="alamat">Alamat</label>
+                                    @error('alamat')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 

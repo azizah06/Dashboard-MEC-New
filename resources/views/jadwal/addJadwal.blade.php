@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -18,8 +11,7 @@
                 <h1>Tambah Jadwal</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">Tables</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item active">Data</li>
                     </ol>
                 </nav>
@@ -28,78 +20,114 @@
             <section class="section">
                 <div class="card">
                     <div class="card-body p-4">
-                        {{-- <h5 class="card-title">Tambah Data Siswa</h5> --}}
 
-                        <!-- Floating Labels Form -->
-                        <form class="row g-3">
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="kd_jadwal" placeholder="Kode Jadwal">
-                                    <label for="kd_jadwal">Kode Jadwal</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="hari" aria-label="State">
-                                        <option selected>Pilih Hari...</option>
-                                        <option value="1">Senin</option>
-                                        <option value="2">Selasa</option>
-                                    </select>
-                                    <label for="hari">Hari</label>
-                                </div>
-                            </div>
 
-                            <div class="col-md-4">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="paket_kelas" aria-label="State">
-                                        <option selected>Pilih Paket Kelas...</option>
-                                        <option value="1">SKD Kedinasan Offline</option>
-                                        <option value="2">Psikotes Offline</option>
-                                    </select>
-                                    <label for="paket_kelas">Paket Kelas</label>
+                            <!-- Floating Labels Form -->
+                            <form class="row g-3" action="{{ route('jadwal.store') }}" method="POST">
+                                @csrf
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" name="kd_jadwal" class="form-control @error('kd_jadwal') is-invalid @enderror" id="kd_jadwal" value="{{ old('kd_jadwal') }}" placeholder="Kode Jadwal">
+                                        <label for="kd_jadwal">Kode Jadwal</label>
+                                        @error('kd_jadwal')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="mentor" aria-label="State">
-                                        <option selected>Pilih Mentor...</option>
-                                        <option value="1">Nur Azizah Rosidah</option>
-                                        <option value="2">Najma Makassar</option>
-                                    </select>
-                                    <label for="mentor">Mentor</label>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select name="hari" class="form-select @error('hari') is-invalid @enderror" id="floatingSelect" aria-label="Hari">
+                                            <option value="" selected>Pilih Hari...</option>
+                                            <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : '' }}>Senin</option>
+                                            <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                            <option value="Rabu" {{ old('hari') == 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                                            <option value="Kamis" {{ old('hari') == 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                                            <option value="Jumat" {{ old('hari') == 'Jumat' ? 'selected' : '' }}>Jumat</option>
+                                            <option value="Sabtu" {{ old('hari') == 'Sabtu' ? 'selected' : '' }}>Sabtu</option>
+                                            <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : '' }}>Minggu</option>
+                                        </select>
+                                        <label for="floatingSelect">Hari</label>
+                                        @error('hari')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="mentor" aria-label="State">
-                                        <option selected>Pilih Ruangan...</option>
-                                        <option value="1">Ruangan 1</option>
-                                        <option value="2">Ruangan 2</option>
-                                    </select>
-                                    <label for="mentor">Ruangan</label>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select name="pkt_kelas_id" class="form-control @error('pkt_kelas_id') is-invalid @enderror" id="exampleSelectBorder">
+                                            <option value="" selected>Pilih...</option>
+                                            @foreach ($pkt_kelas as $class)
+                                                <option value="{{ $class->id }}" {{ old('pkt_kelas_id') == $class->id ? 'selected' : '' }}>{{ $class->nama_kelas }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="exampleSelectBorder">Paket Kelas</label>
+                                        @error('pkt_kelas_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input type="time" class="form-control" id="jam_mulai">
-                                    <label for="jam_mulai">Jam Mulai</label>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select name="mentor_id" class="form-control @error('mentor_id') is-invalid @enderror" id="exampleSelectBorder">
+                                            <option value="" selected>Pilih...</option>
+                                            @foreach ($mentor as $mentors)
+                                                <option value="{{ $mentors->id }}" {{ old('mentor_id') == $mentors->id ? 'selected' : '' }}>{{ $mentors->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="exampleSelectBorder">Nama Mentor</label>
+                                        @error('mentor_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating">
-                                    <input type="time" class="form-control" id="jam_selesai">
-                                    <label for="jam_selesai">Jam Selesai</label>
-                                </div>
-                            </div>
 
-                            <div class="">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a class="btn btn-sm btn-secondary">Kembali</a>
-                            </div>
-                        </form><!-- End floating Labels Form -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <select name="sarpra_id" class="form-control @error('sarpra_id') is-invalid @enderror" id="exampleSelectBorder">
+                                            <option value="" selected>Pilih...</option>
+                                            @foreach ($sarpra as $sarpras)
+                                                <option value="{{ $sarpras->id }}" {{ old('sarpra_id') == $sarpras->id ? 'selected' : '' }}>{{ $sarpras->nama_ruangan }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="exampleSelectBorder">Nama Ruangan</label>
+                                        @error('sarpra_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="time" name="jam_mulai" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam_mulai" value="{{ old('jam_mulai') }}">
+                                        <label for="jam_mulai">Jam Mulai</label>
+                                        @error('jam_mulai')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="time" name="jam_akhir" class="form-control @error('jam_akhir') is-invalid @enderror" id="jam_akhir" value="{{ old('jam_akhir') }}">
+                                        <label for="jam_akhir">Jam Selesai</label>
+                                        @error('jam_akhir')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                </div>
+                            </form>
+
+
+
+                        {{-- @endforeach --}}
 
                     </div>
                 </div>

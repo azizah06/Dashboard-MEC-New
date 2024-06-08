@@ -15,7 +15,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Sarana Prasarana</h1>
+                <h1>Edit Sarana Prasarana</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -77,9 +77,9 @@
                                 </div>
                             </div>
 
-                            <h6 class="align-items-center">Detail Rincian Barang</h6>
+                            <h6 class="align-items-center text-center mt-5 py-2 fw-bold text-light rounded-3 bg-secondary">Detail Rincian Barang</h6>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="meja_mentor" class="form-control" id="meja_mentor"
                                         placeholder="Your Name" value="{{$sarpra->meja_mentor}}">
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="kursi_mentor" class="form-control" id="kursi_mentor"
                                         placeholder="Your Name" value="{{$sarpra->kursi_mentor}}">
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="kursi_meja_siswa" class="form-control" id="kursi_meja_siswa"
                                         placeholder="Your Name" value="{{$sarpra->kursi_meja_siswa}}">
@@ -103,7 +103,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="kipas" class="form-control" id="kipas"
                                         placeholder="Your Name" value="{{$sarpra->kipas}}">
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="papan_tulis" class="form-control" id="papan_tulis"
                                         placeholder="Your Name" value="{{$sarpra->papan_tulis}}">
@@ -128,7 +128,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('sarpra.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
 
                             </div>
                         </form><!-- End floating Labels Form -->

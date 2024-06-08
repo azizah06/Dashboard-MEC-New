@@ -15,7 +15,7 @@
 
   body {
     font-family: "Open Sans", sans-serif;
-    background: #233f77;
+    background: #f6f9ff;
     color: #444444;
   }
 
@@ -1209,6 +1209,43 @@
       max-width: 50%;
     }
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Nunito", sans-serif;
+  }
+
+
+#siswaTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#mentorTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#siswaTable th,
+#siswaTable td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 10px; /* Adjust this value as needed */
+}
+
+/* #mentorTable th,
+#mentorTable td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 10px;
+} */
+
 
   /*--------------------------------------------------------------
   # Footer

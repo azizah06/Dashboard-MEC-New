@@ -13,92 +13,117 @@
 <body>
     @extends('layouts.app')
     @section('content')
+        @push('scripts')
+            <script type="module">
+                $(document).ready(function() {
+                    $('#pkt_kelasTable').DataTable();
+                    $(".datatable").on("click", ".btn-delete", function(e) {
+                        e.preventDefault();
 
-    <main id="main" class="main">
+                        var form = $(this).closest("form");
+                        var name = $(this).data("name");
 
-        <div class="pagetitle">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1>Data Mentor</h1>
-                    <nav>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Data Mentor</li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="col-md-6 text-end d-flex flex-column justify-content-center">
-                    <a href="{{ route('paket_kelas.create') }}" class="btn btn-sm btn-primary px-3 ms-auto">Tambah</a>
-                </div>
-            </div>
-        </div><!-- End Page Title -->
+                        Swal.fire({
+                            title: "Are you sure want to delete\n" + name + "?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "bg-primary",
+                            confirmButtonText: "Yes, delete it!",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
 
-        <section class="section">
-          <div class="row">
-            <div class="col-lg-12">
+        <main id="main" class="main">
 
-              <div class="card">
-                <div class="card-body">
-
-                    <!-- Search Bar -->
-                    <div class="search-bar d-flex">
-                        <form class="search-form" method="POST" action="#">
-                            <input class="rounded-3 border-1 p-1 ps-3" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                            <button class="border-0 btn btn-transparent" type="submit" title="Search"><i class="bi bi-search"></i></button>
-                        </form>
-                        <div class="mb-4 ms-auto">
-                            <button class="btn btn-sm btn-info" onclick="importExcel()">Import Excel</button>
+            <div class="pagetitle">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Data Paket Kelas</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Data Paket Kelas</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-end d-flex flex-column justify-content-center">
+                        <div class="d-flex ms-auto">
+                            <a href="{{ route('paket_kelas.create') }}"
+                                class="btn btn-sm btn-primary px-3 ms-auto me-2">Tambah</a>
+                            <a href="{{ route('paket_kelas.exportExcels')}}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
                         </div>
                     </div>
-                    <!-- End Search Bar -->
-
-                  <!-- Table with stripped rows -->
-                  <table class="table datatable">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th>Jumlah Siswa</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($pkt_kelas as $pk)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{$pk->nama_kelas}}</td>
-                            <td>RP. {{ number_format($pk->harga, 0, ',', '.') }}</td>
-                            <td>{{$pk->siswa_count}}</td>
-                            <td>
-                                <a href="{{ route('paket_kelas.show', $pk->id) }}" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Data Siswa"><i class="bi bi-eye"></i></a>
-                                <a href="{{ route('paket_kelas.edit', $pk->id) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil-square"></i></a>
-                                <a href="" class="btn btn-sm">
-                                    <form action="{{ route('paket_kelas.destroy', $pk->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger btn-sm me-2"><i class="bi-trash"></i></button>
-                                    </form>
-
-                                </a>
-
-                            </td>
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                  </table>
-                  <!-- End Table with stripped rows -->
-
                 </div>
-              </div>
+            </div><!-- End Page Title -->
 
-            </div>
-          </div>
-        </section>
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
 
-      </main><!-- End #main -->
+                        <div class="card">
+                            <div class="card-body">
 
+                                <!-- Table with stripped rows -->
+                                <table class="table datatable table-hover" style="width:100%" id="pkt_kelasTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th>Nama</th>
+                                            <th>Harga</th>
+                                            <th class="text-center">Jumlah Siswa</th>
+                                            <th class="text-center col-2">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pkt_kelas as $pk)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $pk->nama_kelas }}</td>
+                                                <td>RP. {{ number_format($pk->harga, 0, ',', '.') }}</td>
+                                                <td class="text-center">{{ $pk->siswa_count }}</td>
+                                                <td class="text-center col-2">
+                                                    <a href="{{ route('paket_kelas.show', $pk->id) }}"
+                                                        class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Detail Data Siswa"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <a href="{{ route('paket_kelas.edit', $pk->id) }}"
+                                                        class="btn btn-sm btn-outline-warning"><i
+                                                            class="bi bi-pencil-square"></i></a>
+                                                    <a href="" class="btn btn-sm">
+                                                        <form action="{{ route('paket_kelas.destroy', $pk->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-delete btn-outline-danger btn-sm me-2" data-name="{{ $pk->id . ' ' . $pk->nama_kelas }}"><i
+                                                                    class="bi-trash"></i></button>
+                                                        </form>
+
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <!-- End Table with stripped rows -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main><!-- End #main -->
     @endsection
 
     @vite('resources/js/app.js')

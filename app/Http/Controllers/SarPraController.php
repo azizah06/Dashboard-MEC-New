@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SarpraExport;
 use Illuminate\Http\Request;
 use App\Models\Sarpra;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SarPraController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function makeExcle()
+     {
+         return Excel::download(new SarpraExport(), 'Data-Sarana-Prasarana.xlsx');
+     }
+
     public function index()
     {
         // Anda bisa menambahkan logika pemrosesan data di sini
+        confirmDelete();
         $sarpra = Sarpra::all();
         return view('sarpra.sarpra', ['sarpra' => $sarpra]);
     }
@@ -76,6 +85,7 @@ class SarPraController extends Controller
         $sarpra->papan_tulis = $request->papan_tulis;
         $sarpra->keterangan = $request->keterangan;
         $sarpra->save();
+        Alert::success('Tambah Data', 'Berhasil Tambah Data Sarana Prasarana.');
         return redirect()->route('sarpra.index')->with('success', 'Data Sarpra berhasil disimpan!');
     }
 
@@ -118,6 +128,7 @@ class SarPraController extends Controller
         $sarpra->papan_tulis = $request->papan_tulis;
         $sarpra->keterangan = $request->keterangan;
         $sarpra->save();
+        Alert::success('Update Data', 'Berhasil Update Data Sarana Prasarana.');
         return redirect()->route('sarpra.index')->with('success', 'Data Sarpra berhasil disimpan!');
     }
 
@@ -128,6 +139,7 @@ class SarPraController extends Controller
     {
         //
         Sarpra::find($id)->delete();
+        Alert::success('Hapus Data', 'Berhasil Hapus Data Sarana Prasarana.');
         return redirect()->route('sarpra.index')->with('success', 'Data Sarpra berhasil disimpan!');
     }
 }

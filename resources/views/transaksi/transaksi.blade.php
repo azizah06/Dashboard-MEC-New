@@ -12,82 +12,118 @@
 <body>
     @extends('layouts.app')
     @section('content')
+        @push('scripts')
+            <script type="module">
+                $(document).ready(function() {
+                    $('#transaksiTable').DataTable();
+                    $(".datatable").on("click", ".btn-delete", function(e) {
+                        e.preventDefault();
 
-    <main id="main" class="main">
+                        var form = $(this).closest("form");
+                        var name = $(this).data("name");
 
-        <div class="pagetitle">
-          <h1>Data Transaksi Pembayaran</h1>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active">Data</li>
-            </ol>
-          </nav>
-        </div><!-- End Page Title -->
+                        Swal.fire({
+                            title: "Hapus\n" + name + "?",
+                            text: "Apakah Anda yakin ingin menghapus data ini?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "bg-primary",
+                            confirmButtonText: "Ya, Hapus Data ini!",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
+        <main id="main" class="main">
 
-        <section class="section">
-          <div class="row">
-            <div class="col-lg-12">
-
-              <div class="card">
-                <div class="card-body">
-
-                    <!-- Search Bar -->
-                    <div class="search-bar d-flex">
-                        <form class="search-form" method="POST" action="#">
-                            <input class="rounded-3 border-1 p-1 ps-3" type="text" name="query" placeholder="Search" title="Enter search keyword">
-                            <button class="border-0 btn btn-transparent" type="submit" title="Search"><i class="bi bi-search"></i></button>
-                        </form>
-                        <div class="mb-4 ms-auto">
-                            <button class="btn btn-sm btn-info" onclick="importExcel()">Import Excel</button>
+            <div class="pagetitle">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Data Transaksi</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item active">Data Siswa</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 text-end d-flex flex-column justify-content-center">
+                        <div class="d-flex ms-auto">
+                            <a href="{{ route('transaksi.create') }}" class="btn btn-sm btn-primary px-3 me-2"><i class="bi bi-person-add"></i> Tambah Data</a>
+                            <a href="{{ route('transaksi.exportExcels') }}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
                         </div>
                     </div>
-                    <!-- End Search Bar -->
-
-                  <!-- Table with stripped rows -->
-                  <a href="{{route('transaksi.create')}}" class="btn btn-sm btn-primary mb-3">Tambah</a>
-                  <table class="table datatable">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Kode Bayar</th>
-                        <th>Siswa</th>
-                        <th>Paket Kelas</th>
-                        <th>Tanggal Bayar</th>
-                        <th>Bukti Bayar</th>
-                        {{-- <th>Ruangan</th> --}}
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>JAN012401</td>
-                            <td>Nur Azizah Rosidah</td>
-                            <td>SKD Kedinasan Offline</td>
-                            <td>01 Jan 2024</td>
-                            <td><img src="" alt="Bukti Pembayaran"></td>
-                            <td>
-                                <a href="" class="btn btn-sm btn-info">Detail</a>
-                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="" class="btn btn-sm btn-danger">Del</a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                  </table>
-                  <!-- End Table with stripped rows -->
-
                 </div>
-              </div>
+            </div><!-- End Page Title -->
 
-            </div>
-          </div>
-        </section>
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
 
-      </main><!-- End #main -->
+                        <div class="card">
+                            <div class="card-body">
 
+                                <!-- Table with stripped rows -->
+                                <table id="transaksiTable" style="width:100%" class="table datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kode Bayar</th>
+                                            <th class="text-center">Nama Siswa</th>
+                                            <th>Paket Kelas</th>
+                                            <th>Tanggal Bayar</th>
+                                            <th>Nominal Bayar</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($transaksi as $j)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $j->kd_bayar }}</td>
+                                                <td>{{ $j->nama_siswa }}</td>
+                                                <td>{{ $j->paket_kelas }}</td>
+                                                <td class="text-center">{{ $j->tgl_bayar }}</td>
+                                                <td>RP. {{ number_format($j->harga_bayar, 0, ',', '.') }}</td>
+                                                <td class="text-nowrap">
+                                                    <a href="{{ route('transaksi.show', $j->id) }}"
+                                                        class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Detail Data transaksi"><i
+                                                            class="bi bi-eye"></i></a>
+
+                                                    <a href="{{ route('transaksi.edit', $j->id) }}"
+                                                        class="btn btn-sm btn-outline-warning"><i
+                                                            class="bi bi-pencil-square"></i></a>
+
+                                                    <form action="{{ route('transaksi.destroy', ['transaksi' => $j->id]) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger btn-sm btn-delete"
+                                                            data-name="{{ $j->id . ' ' . $j->nama_siswa }}"><i
+                                                                class="bi-trash"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <!-- End Table with stripped rows -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main><!-- End #main -->
     @endsection
 
     @vite('resources/js/app.js')

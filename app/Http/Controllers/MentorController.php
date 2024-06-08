@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MentorExport;
 use Illuminate\Http\Request;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MentorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+     public function makeExcle()
+     {
+         return Excel::download(new MentorExport(), 'Data_Mentor.xlsx');
+     }
     public function index()
     {
         // Anda bisa menambahkan logika pemrosesan data di sini
         $mentor = Mentor::all();
+        confirmDelete();
         return view('mentor.mentor', ['mentor' => $mentor]);
     }
 
@@ -43,9 +52,11 @@ class MentorController extends Controller
         [
             'kd_mentor.required' => 'Kode Mentor harus diisi.',
             'nama.required' => 'Nama Mentor harus diisi.',
+            'email.required' => 'Email harus diisi.',
             'tgl_lahir.required' => 'Tanggal lahir harus diisi.',
             'no_telp.required' => 'Nomor Telepon harus diisi.',
             'jenis_kelamin.required' => 'Jenis Kelamin harus diisi.',
+            'pendidikan.required' => 'Pendidikan harus diisi.',
             'alamat.required' => 'Alamat harus diisi.',
 
             // Tambahkan pesan kustom untuk aturan validasi lainnya di sini
@@ -65,6 +76,7 @@ class MentorController extends Controller
         $mentor->pendidikan = $request->pendidikan;
         $mentor->alamat = $request->alamat;
         $mentor->save();
+        Alert::success('Tambah Data', 'Berhasil Tambah Data Mentor.');
         return redirect()->route('mentor.index')->with('success', 'Data Mentor berhasil disimpan!');
     }
 
@@ -101,6 +113,7 @@ class MentorController extends Controller
         $mentor->pendidikan = $request->pendidikan;
         $mentor->alamat = $request->alamat;
         $mentor->save();
+        Alert::success('Update Data', 'Berhasil Update Data Mentor.');
         return redirect()->route('mentor.index')->with('success', 'Data Mentor berhasil disimpan!');
     }
 
@@ -110,6 +123,7 @@ class MentorController extends Controller
     public function destroy(string $id)
     {
         Mentor::find($id)->delete();
+        Alert::success('Hapus Data', 'Data Mentor Berhasil Dihapus');
         return redirect()->route('mentor.index')->with('success', 'Data mentor berhasil dihapus.');
     }
 }

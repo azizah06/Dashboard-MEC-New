@@ -19,7 +19,7 @@ class Pkt_kelasFactory extends Factory
         return [
             'kd_pkt_kelas' =>$this->faker->unique()->randomNumber(8),
             'nama_kelas' => $this->faker->unique()->randomElement(['SKD Kedinasan', 'SBMPTN', 'English Class']),
-            'harga' => $this->faker->randomFloat(2, 1000, 10000),
+            'harga' => $this->faker->numberBetween(1000, 10000),
 
         ];
 

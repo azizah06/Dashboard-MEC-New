@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -39,7 +32,7 @@
                                         placeholder="Your Name" value="{{ old('kd_siswa') }}" >
                                     <label for="kd_siswa">Kode Siswa</label>
                                     @error('kd_siswa')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -49,39 +42,50 @@
                                         placeholder="Your Name" value="{{ old('nama') }}">
                                     <label for="nama">Nama Lengkap</label>
                                     @error('nama')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="date" name="tgl_lahir" class="form-control" id="tgl_lahir"
-                                        placeholder="Your Name">
+                                    <input type="date" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir"
+                                        placeholder="Your Name" value="{{ old('tgl_lahir') }}">
                                     <label for="tgl_lahir">Tanggal Lahir</label>
+                                    @error('tgl_lahir')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="number" name="no_telp" class="form-control" id="no_telp"
-                                        placeholder="Your Email">
+                                    <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp"
+                                        placeholder="Your Email" value="{{ old('no_telp') }}">
                                     <label for="no_telp">No Telp</label>
+                                    @error('no_telp')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <select name="jenis_kelamin" class="form-select" id="floatingSelect" aria-label="State">
-                                        <option selected>Pilih...</option>
-                                        <option value="Laki - laki">Laki laki</option>
-                                        <option value="Perempuan">Perempuan</option>
+                                    <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" id="floatingSelect" aria-label="State">
+                                        <option selected disabled>Pilih...</option>
+                                        <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                     </select>
                                     <label for="floatingSelect">Jenis Kelamin</label>
+                                    @error('jenis_kelamin')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
+
+
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <select name="pkt_kelas_id" class="form-control" id="exampleSelectBorder">
+                                    <select name="pkt_kelas_id" class="form-control @error('pkt_kelas_id') is-invalid @enderror" id="exampleSelectBorder" value="{{ old('pkt_kelas_id') }}">
                                         <option selected>Pilih...</option>
                                         @foreach ($pkt_kelas as $class)
                                             <option name="pkt_kelas_id" value="{{ $class->id }}">{{ $class->nama_kelas }}
@@ -89,13 +93,19 @@
                                         @endforeach
                                     </select>
                                     <label for="floatingSelect">Paket Kelas</label>
+                                    @error('pkt_kelas_id')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <textarea class="form-control" name="alamat" placeholder="Address" id="alamat" style="height: 100px;"></textarea>
+                                    <textarea class="form-control @error('alamat') is-invalid @enderror" name="alamat" placeholder="Address" id="alamat" style="height: 100px;" value="{{ old('alamat') }}"></textarea>
                                     <label for="alamat">Alamat</label>
+                                    @error('alamat')
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 

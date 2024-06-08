@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -38,7 +30,7 @@
                                         placeholder="Your Name" value="{{ old('kd_sarpra') }}" >
                                     <label for="kd_sarpra">Kode Sarpra</label>
                                     @error('kd_sarpra')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -76,9 +68,9 @@
                                 </div>
                             </div>
 
-                            <h6 class="align-items-center">Detail Rincian Barang</h6>
+                            <h6 class="align-items-center text-center mt-5 py-2 fw-bold text-light rounded-3 bg-secondary">Detail Rincian Barang</h6>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="meja_mentor" class="form-control" id="meja_mentor"
                                         placeholder="Your Name" value="{{ old('meja_mentor') }}">
@@ -86,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="kursi_mentor" class="form-control" id="kursi_mentor"
                                         placeholder="Your Name" value="{{ old('kursi_mentor') }}">
@@ -94,15 +86,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="kursi_meja_siswa" class="form-control" id="kursi_meja_siswa"
                                         placeholder="Your Name" value="{{ old('kursi_meja_mentor') }}">
-                                    <label for="kursi_meja_siswa">Jumlah Kursi Meja Siswa</label>
+                                    <label for="kursi_meja_siswa">Kursi Meja Siswa</label>
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="kipas" class="form-control" id="kipas"
                                         placeholder="Your Name" value="{{ old('kipas') }}">
@@ -110,7 +102,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col">
                                 <div class="form-floating">
                                     <input type="number" name="papan_tulis" class="form-control" id="papan_tulis"
                                         placeholder="Your Name" value="{{ old('papan_tulis') }}">
@@ -127,7 +119,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('sarpra.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
 
                             </div>
                         </form><!-- End floating Labels Form -->
