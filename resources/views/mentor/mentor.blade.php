@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard MEC</title>
-    @vite('resources/sass/app.scss')
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
     @push('scripts')
@@ -69,7 +58,7 @@
 
 
                                 <!-- Table with stripped rows -->
-                                <table class="table datatable table-hover mb-0 " style="width:73%" id="mentorTable">
+                                <table class="table datatable table-hover" style="width:73%" id="mentorTable">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
@@ -121,8 +110,3 @@
 
         </main><!-- End #main -->
     @endsection
-
-    @vite('resources/js/app.js')
-</body>
-
-</html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SiswaController;
@@ -22,32 +23,32 @@ use App\Http\Controllers\ProfileController;
 */
 
 // Rute untuk Dashboard
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard')->middleware('user');
 
 // Rute untuk Siswa
-Route::resource('/siswa', SiswaController::class);
+Route::resource('/siswa', SiswaController::class)->middleware('user');
 // Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa');
 
 // Rute untuk Mentor
-Route::resource('/mentor', MentorController::class);
+Route::resource('/mentor', MentorController::class)->middleware('user');
 // Route::get('/mentor', [MentorController::class, 'index'])->name('mentor');
 
 // Rute untuk Paket Kelas
-Route::resource('/paket_kelas', PaketKelasController::class);
+Route::resource('/paket_kelas', PaketKelasController::class)->middleware('user');
 // Route::get('/paket_kelas', [PaketKelasController::class, 'index'])->name('paket_kelas');
 
 // Rute untuk Jadwal
-Route::resource('/jadwal', JadwalController::class);
+Route::resource('/jadwal', JadwalController::class)->middleware('user');
 // Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal');
 
 // Rute untuk Transaksi
-Route::resource('/transaksi', TransaksiController::class);
+Route::resource('/transaksi', TransaksiController::class)->middleware('user');
 
 // Rute untuk Sarana Prasarana
-Route::resource('/sarpra', SarpraController::class);
+Route::resource('/sarpra', SarpraController::class)->middleware('user');
 
 // Rute untuk Sarana Prasarana
-Route::resource('/profile', ProfileController::class);
+Route::resource('/profile', ProfileController::class)->middleware('user');
 
 // Route::get('exportExcel', [SiswaController::class, 'exportExcel'])->name('siswa.exportExcel');
 Route::get('/siswa_exportExcel', [SiswaController::class, 'makeExcle'])->name('siswa.exportExcels');
@@ -57,10 +58,18 @@ Route::get('/jadwal_exportExcel', [JadwalController::class, 'makeExcle'])->name(
 Route::get('/transaksi_exportExcel', [TransaksiController::class, 'makeExcle'])->name('transaksi.exportExcels');
 Route::get('/sarpra_exportExcel', [SarpraController::class, 'makeExcle'])->name('sarpra.exportExcels');
 
-// Route::get('/exportExcel', [SiswaController::class, 'exportExcel'])->name('exportExcels');
+Route::get('/siswa_exportPdf', [SiswaController::class, 'makePDF'])->name('siswa.exportPdf');
 
-// Route::get('exportExcel', [SarpraController::class, 'exportExcel'])->name('sarpra.exportExcel');
-// Route::get('exportExcel', [MentorController::class, 'exportExcel'])->name('mentor.exportExcel');
-// Route::get('exportExcel', [JadwalController::class, 'exportExcel'])->name('jadwal.exportExcel');
-// Route::get('exportExcel', [PaketKelasController::class, 'exportExcel'])->name('pkt_kelas.exportExcel');
-// Route::get('exportExcel', [TransaksiController::class, 'exportExcel'])->name('transaksi.exportExcel');
+Route::get('login', [AuthController::class,'index'])->name('login');
+Route::get('register', [AuthController::class,'register'])->name('register');
+Route::post('proses_login', [AuthController::class,'proses_login'])->name('proses_login');
+Route::get('logout', [AuthController::class,'logout'])->name('logout');
+
+Route::post('proses_register',[AuthController::class,'proses_register'])->name('proses_register');
+
+// kita atur juga untuk middleware menggunakan group pada routing
+// didalamnya terdapat group untuk mengecek kondisi login
+// jika user yang login merupakan admin maka akan diarahkan ke AdminController
+// jika user yang login merupakan user biasa maka akan diarahkan ke UserController
+Route::group(['middleware' => ['auth']], function () {
+});

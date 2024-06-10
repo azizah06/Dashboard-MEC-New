@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaksi;
+use PDF;
 use App\Exports\SiswaExport;
 use App\Models\Pkt_kelas;
 use App\Models\Siswa;
@@ -20,6 +22,15 @@ class SiswaController extends Controller
      {
          return Excel::download(new SiswaExport(), 'Data_Siswa.xlsx');
      }
+
+    public function makePDF()
+    {
+        $siswa = Siswa::all();
+        $pdf = PDF::loadView('siswa.export_pdf', compact('siswa'));
+
+    return $pdf->download('Data_Siswa.pdf');
+}
+
 
     public function index()
     {
@@ -162,7 +173,10 @@ class SiswaController extends Controller
     {
         Siswa::find($id)->delete();
 
-        Alert::success('Hapus Data', 'Data Siswa Berhasil Dihapus');
+        Alert::success('Hapus Data', 'Data Siswa Berhasil Dihapus'); $transaksi = Transaksi::findOrFail($id);
+        $transaksi->delete();
+
+        // return redirect()->route('transaksi.index')->with('success', 'Transaksi deleted successfully.');
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus.');
     }
 

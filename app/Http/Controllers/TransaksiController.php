@@ -10,6 +10,7 @@ use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class TransaksiController extends Controller
@@ -47,13 +48,12 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make([
-            $request->all(),
+        $validator = Validator::make($request->all(), [
             'kd_bayar' => 'required|unique:transaksis',
             'siswa_id' => 'required|exists:siswa,id',
             'pkt_kls_id' => 'required|exists:pkt_kelas,id',
             'tgl_bayar' => 'required|date',
-            'bukti_bayar' => 'required|string',
+            'bukti_bayar' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'kd_bayar.required' => 'Kode Pembayaran harus diisi.',
             'kd_bayar.unique' => 'Kode Pembayaran sudah ada dalam database.',
@@ -64,8 +64,12 @@ class TransaksiController extends Controller
             'tgl_bayar.required' => 'Tanggal Pembayaran harus diisi.',
             'tgl_bayar.date' => 'Format tanggal tidak valid.',
             'bukti_bayar.required' => 'Bukti Pembayaran harus diunggah.',
-            'bukti_bayar.string' => 'Bukti Pembayaran harus berupa teks.',
+            'bukti_bayar.file' => 'Bukti Pembayaran harus berupa file.',
+            'bukti_bayar.image' => 'Bukti Pembayaran harus berupa gambar.',
+            'bukti_bayar.mimes' => 'Bukti Pembayaran harus dalam format jpeg, png, jpg, atau gif.',
+            'bukti_bayar.max' => 'Ukuran maksimal Bukti Pembayaran adalah 2MB.',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -94,8 +98,8 @@ class TransaksiController extends Controller
         $transaksi->bukti_bayar = $imageName;
 
         $transaksi->save();
-
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi created successfully.');
+        Alert::success('Tambah Data', 'Berhasil Tambah Data Siswa.');
+        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -131,7 +135,8 @@ class TransaksiController extends Controller
             'siswa_id' => 'required|exists:siswa,id',
             'pkt_kls_id' => 'required|exists:pkt_kelas,id',
             'tgl_bayar' => 'required|date',
-            'bukti_bayar' => 'required|string',
+            // 'bukti_bayar' => 'required|string',
+            'bukti_bayar' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'kd_bayar.required' => 'Kode Pembayaran harus diisi.',
             'kd_bayar.unique' => 'Kode Pembayaran sudah ada dalam database.',
@@ -142,7 +147,10 @@ class TransaksiController extends Controller
             'tgl_bayar.required' => 'Tanggal Pembayaran harus diisi.',
             'tgl_bayar.date' => 'Format tanggal tidak valid.',
             'bukti_bayar.required' => 'Bukti Pembayaran harus diunggah.',
-            'bukti_bayar.string' => 'Bukti Pembayaran harus berupa teks.',
+            'bukti_bayar.file' => 'Bukti Pembayaran harus berupa file.',
+            'bukti_bayar.image' => 'Bukti Pembayaran harus berupa gambar.',
+            'bukti_bayar.mimes' => 'Bukti Pembayaran harus dalam format jpeg, png, jpg, atau gif.',
+            'bukti_bayar.max' => 'Ukuran maksimal Bukti Pembayaran adalah 2MB.',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -172,8 +180,8 @@ class TransaksiController extends Controller
         }
 
         $transaksi->save();
-
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi created successfully.');
+        Alert::success('Update Data', 'Berhasil Update Data Transaksi');
+        return redirect()->route('transaksi.index');
     }
 
     /**
@@ -181,6 +189,9 @@ class TransaksiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->delete();
+        Alert::success('Hapus Data', 'Data Siswa Berhasil Dihapus');
+        return redirect()->route('transaksi.index');
     }
 }

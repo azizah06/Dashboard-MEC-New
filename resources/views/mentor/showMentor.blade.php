@@ -77,7 +77,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('mentor.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
                         </form><!-- End floating Labels Form -->
 

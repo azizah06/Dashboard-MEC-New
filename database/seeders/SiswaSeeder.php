@@ -14,7 +14,7 @@ class SiswaSeeder extends Seeder
      */
     public function run(): void
     {
-        Siswa::factory()->count(3)->create();
+        Siswa::factory()->count(11)->create();
         // DB::table('siswa')->insert([
         //     [
         //     'kd_siswa' => '1200',

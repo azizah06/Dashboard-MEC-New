@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('kursi_meja_siswa');
             $table->integer('kipas');
             $table->integer('papan_tulis');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

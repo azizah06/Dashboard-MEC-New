@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    @vite('resources/sass/app.scss')
-    @vite('resources/sass/app.scss')
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
         @push('scripts')
@@ -56,7 +44,7 @@
                     <div class="col-md-6 text-end d-flex flex-column justify-content-center">
                         <div class="d-flex ms-auto">
                             <a href="{{ route('paket_kelas.create') }}"
-                                class="btn btn-sm btn-primary px-3 ms-auto me-2">Tambah</a>
+                            class="btn btn-sm btn-primary px-3 me-2"><i class="bi bi-person-add"></i> Tambah Data</a>
                             <a href="{{ route('paket_kelas.exportExcels')}}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
                         </div>
                     </div>
@@ -74,7 +62,7 @@
                                 <table class="table datatable table-hover" style="width:100%" id="pkt_kelasTable">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">No</th>
+                                            <th style="width: 5%; white-space: nowrap;">No</th>
                                             <th>Nama</th>
                                             <th>Harga</th>
                                             <th class="text-center">Jumlah Siswa</th>
@@ -125,9 +113,3 @@
 
         </main><!-- End #main -->
     @endsection
-
-    @vite('resources/js/app.js')
-    @vite('resources/js/main.js')
-</body>
-
-</html>

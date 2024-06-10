@@ -104,6 +104,33 @@ class MentorController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $validator = Validator::make($request->all(), [
+            'kd_mentor' => 'required|unique:mentor',
+            'nama' => 'required',
+            'email' => 'required',
+            'no_telp' => 'required',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'pendidikan' => 'required',
+            'alamat' => 'required',
+        ],
+        [
+            'kd_mentor.required' => 'Kode Mentor harus diisi.',
+            'nama.required' => 'Nama Mentor harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'tgl_lahir.required' => 'Tanggal lahir harus diisi.',
+            'no_telp.required' => 'Nomor Telepon harus diisi.',
+            'jenis_kelamin.required' => 'Jenis Kelamin harus diisi.',
+            'pendidikan.required' => 'Pendidikan harus diisi.',
+            'alamat.required' => 'Alamat harus diisi.',
+
+            // Tambahkan pesan kustom untuk aturan validasi lainnya di sini
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         $mentor = Mentor::findOrFail($id);
         $mentor->kd_mentor = $request->kd_mentor;
         $mentor->nama = $request->nama;

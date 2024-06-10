@@ -18,9 +18,8 @@
                 <h1>Edit Paket Kelas</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">Tables</li>
-                        <li class="breadcrumb-item active">Data</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Data Paket Kelas</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -70,7 +69,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('paket_kelas.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
                         </form>
                         <!-- End floating Labels Form -->

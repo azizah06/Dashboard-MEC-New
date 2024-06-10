@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    @vite('resources/sass/app.scss')
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
         <main id="main" class="main">
@@ -18,9 +7,8 @@
                 <h1>Tambah Paket Kelas</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item">Tables</li>
-                        <li class="breadcrumb-item active">Data</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Data Paket Kelas</li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -69,7 +57,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('paket_kelas.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
                         </form>
                         <!-- End floating Labels Form -->
@@ -81,7 +69,3 @@
         </main><!-- End #main -->
     @endsection
 
-    @vite('resources/js/app.js')
-</body>
-
-</html>

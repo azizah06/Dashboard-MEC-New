@@ -1,8 +1,4 @@
 
-    @vite('resources/sass/app.scss')
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
         <main id="main" class="main">
@@ -75,7 +71,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('siswa.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
                         </form><!-- End floating Labels Form -->
 
@@ -85,8 +81,3 @@
 
         </main><!-- End #main -->
     @endsection
-
-    @vite('resources/js/app.js')
-</body>
-
-</html>

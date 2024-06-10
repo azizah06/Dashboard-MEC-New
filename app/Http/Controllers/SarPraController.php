@@ -115,6 +115,35 @@ class SarPraController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'kd_sarpra' => 'required|unique:sarpra',
+            'nama_ruangan' => 'required',
+            'kapasitas' => 'required',
+            'jmlh_baik' => 'required',
+            'jmlh_rusak' => 'required',
+            'meja_mentor' => 'required',
+            'kursi_mentor' => 'required',
+            'kursi_meja_siswa' => 'required',
+            'kipas' => 'required',
+            'papan_tulis' => 'required',
+        ],
+        [
+            'kd_sarpra.required' => 'Kode Sarpra harus diisi.',
+            'nama_ruangan.required' => 'Nama ruangan harus diisi.',
+            'kapasitas.required' => 'Kapasitas siswa harus diisi.',
+            'jmlh_baik.required' => 'Jumlah Barang Baik harus diisi.',
+            'jmlh_rusak.required' => 'Jumlah Barang Rusak diisi.',
+            'meja_mentor.required' => 'Meja Mentor harus diisi.',
+            'kursi_mentor.required' => 'Kursi Mentor harus diisi.',
+            'kursi_meja_siswa.required' => 'Kursi Meja Siswa harus diisi.',
+            'kipas.required' => 'Kipas harus diisi.',
+            'papan_tulis.required' => 'Papan tulis harus diisi.',
+        ]);
+
+        // $validator->messages()->add('firstName.required', 'Nama depan harus diisi.');
+        if ($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $sarpra = Sarpra::findOrFail($id);
         $sarpra->kd_sarpra = $request->kd_sarpra;
         $sarpra->nama_ruangan = $request->nama_ruangan;

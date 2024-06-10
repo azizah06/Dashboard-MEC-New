@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard MEC</title>
-    @vite('resources/sass/app.scss')
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
         @push('scripts')
             <script type="module">
                 $(document).ready(function() {
+                     $('#siswaTable').DataTable({
+                    "autoWidth": false, // Disable automatic column width calculation
+                    "responsive": true // Enable responsive feature
+                });
                     $('#jadwalTable').DataTable();
                     $(".datatable").on("click", ".btn-delete", function(e) {
                         e.preventDefault();
@@ -54,7 +47,7 @@
                     </div>
                     <div class="col-md-6 text-end d-flex flex-column justify-content-center">
                         <div class="d-flex ms-auto">
-                            <a href="{{ route('jadwal.create') }}" class="btn btn-sm btn-primary px-3 ms-auto me-2">Tambah</a>
+                            <a href="{{ route('jadwal.create') }}" class="btn btn-sm btn-primary px-3 me-2"><i class="bi bi-person-add"></i> Tambah Data</a>
                             <a href="{{ route('jadwal.exportExcels') }}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
                         </div>
                     </div>
@@ -70,7 +63,7 @@
 
 
                                 <!-- Table with stripped rows -->
-                                <table class="table datatable table-bordered " style="width:100%" id="jadwalTable">
+                                <table class="table datatable table-hover" style="width:100%" id="jadwalTable">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -127,8 +120,3 @@
 
         </main><!-- End #main -->
     @endsection
-
-    @vite('resources/js/app.js')
-</body>
-
-</html>

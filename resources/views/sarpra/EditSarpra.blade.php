@@ -34,22 +34,17 @@
                             @method('PUT')
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="text" name="kd_sarpra"
-                                        class="form-control @error('kd_sarpra') is-invalid @enderror" id="kd_sarpra"
+                                    <input type="text" name="kd_sarpra" class="form-control" id="kd_sarpra"
                                         placeholder="Your Name" value="{{$sarpra->kd_sarpra}}" readonly>
                                     <label for="kd_sarpra">Kode Sarpra</label>
-                                    @error('kd_sarpra')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-floating">
-                                    <input type="text" name="nama_ruangan" class="form-control @error('nama_ruangan') is-invalid @enderror" id="nama_ruangan"
-                                        placeholder="Your Name" value="{{$sarpra->nama_ruangan}}" readonly>
+                                    <input type="text" name="nama_ruangan" class="form-control @error('nama_ruangan') is-invalid @enderror" id="nama_ruangan" placeholder="Your Name" value="{{ old('nama_ruangan', $sarpra->nama_ruangan) }}"                                    >
                                     <label for="nama">Nama Ruangan</label>
                                     @error('nama_ruangan')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -58,22 +53,31 @@
                                     <input type="number" name="kapasitas" class="form-control" id="kapasitas"
                                         placeholder="Your Name" value="{{$sarpra->kapasitas}}">
                                     <label for="kapasitas">Kapasitas</label>
+                                    @error('kapasitas')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="number" name="jmlh_baik" class="form-control" id="jmlh_baik"
-                                        placeholder="Your Name" value="{{$sarpra->jmlh_baik}}">
+                                    <input type="number" name="jmlh_baik" class="form-control @error('jmlh_baik') is-invalid @enderror" id="jmlh_baik"
+                                        placeholder="Your Name" value="{{ old('jmlh_baik', $sarpra->jmlh_baik) }}">
                                     <label for="jmlh_baik">Jumlah Barang Kondisi Baik</label>
+                                    @error('jmlh_baik')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="number" name="jmlh_rusak" class="form-control" id="jmlh_rusak"
-                                        placeholder="Your Name" value="{{$sarpra->jmlh_rusak}}">
+                                    <input type="number" name="jmlh_rusak" class="form-control @error('jmlh_rusak') is-invalid @enderror" id="jmlh_rusak"
+                                        placeholder="Your Name" value="{{ old('jmlh_rusak', $sarpra->jmlh_rusak) }}">
                                     <label for="jmlh_rusak">Jumlah Barang Kondisi Rusak</label>
+                                    @error('jmlh_rusak')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -81,41 +85,56 @@
 
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="number" name="meja_mentor" class="form-control" id="meja_mentor"
-                                        placeholder="Your Name" value="{{$sarpra->meja_mentor}}">
+                                    <input type="number" name="meja_mentor" class="form-control @error('meja_mentor') is-invalid @enderror" id="meja_mentor"
+                                        placeholder="Your Name" value="{{ old('meja_mentor', $sarpra->meja_mentor) }}">
                                     <label for="meja_mentor">Jumlah Meja Mentor</label>
+                                    @error('meja_mentor')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="number" name="kursi_mentor" class="form-control" id="kursi_mentor"
-                                        placeholder="Your Name" value="{{$sarpra->kursi_mentor}}">
+                                    <input type="number" name="kursi_mentor" class="form-control @error('kursi_mentor') is-invalid @enderror" id="kursi_mentor"
+                                        placeholder="Your Name" value="{{ old('kursi_mentor', $sarpra->kursi_mentor) }}">
                                     <label for="kursi_mentor">Jumlah Kursi Mentor</label>
+                                    @error('kursi_mentor')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="number" name="kursi_meja_siswa" class="form-control" id="kursi_meja_siswa"
-                                        placeholder="Your Name" value="{{$sarpra->kursi_meja_siswa}}">
+                                    <input type="number" name="kursi_meja_siswa" class="form-control @error('kursi_meja_siswa') is-invalid @enderror" id="kursi_meja_siswa"
+                                        placeholder="Your Name" value="{{ old('kursi_meja_siswa', $sarpra->kursi_meja_siswa) }}">
                                     <label for="kursi_meja_siswa">Jumlah Kursi Meja Siswa</label>
+                                    @error('kursi_meja_siswa')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="number" name="kipas" class="form-control" id="kipas"
-                                        placeholder="Your Name" value="{{$sarpra->kipas}}">
+                                    <input type="number" name="kipas" class="form-control @error('kipas') is-invalid @enderror" id="kipas"
+                                        placeholder="Your Name" value="{{ old('kipas', $sarpra->kipas) }}">
                                     <label for="kipas">Jumlah Kipas</label>
+                                    @error('kipas')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="number" name="papan_tulis" class="form-control" id="papan_tulis"
-                                        placeholder="Your Name" value="{{$sarpra->papan_tulis}}">
+                                    <input type="number" name="papan_tulis" class="form-control @error('papan_tulis') is-invalid @enderror" id="papan_tulis"
+                                        placeholder="Your Name" value="{{ old('papan_tulis', $sarpra->papan_tulis) }}">
                                     <label for="papan_tulis">Jumlah Papan Tulis</label>
+                                    @error('papan_tulis')
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
+                                    @enderror
                                 </div>
                             </div>
 

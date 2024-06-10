@@ -7,7 +7,7 @@
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1>Tambah Jadwal</h1>
+                <h1>Edit Jadwal</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
@@ -29,13 +29,10 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" value="{{ old('kd_jadwal', $jadwal->kd_jadwal) }}"
-                                        name="kd_jadwal" class="form-control @error('kd_jadwal') is-invalid @enderror"
+                                    <input type="text" value="{{$jadwal->kd_jadwal}}"
+                                        name="kd_jadwal" class="form-control"
                                         id="kd_jadwal" placeholder="Kode Jadwal" readonly>
                                     <label for="kd_jadwal">Kode Jadwal</label>
-                                    @error('kd_jadwal')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -147,7 +144,7 @@
 
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('jadwal.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
                             </div>
                         </form>
                         <!-- End floating Labels Form -->

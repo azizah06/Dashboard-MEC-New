@@ -55,28 +55,23 @@ class jadwalController extends Controller
             'kd_jadwal' => 'required|unique:jadwal',
             'mentor_id' => 'required|exists:mentor,id',
             'pkt_kelas_id' => 'required|exists:pkt_kelas,id',
-            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
-            'jam_mulai' => 'required|date_format:H:i',  // Validasi format waktu jam_mulai
-            'jam_akhir' => 'required|date_format:H:i',  // Validasi format waktu jam_akhir
+            'sarpra_id' => 'required|exists:sarpra,id',
+            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu'
         ], [
-            'kd_jadwal.required' => 'Kode Jadwal harus diisi.',
-            'kd_jadwal.unique' => 'Kode Jadwal sudah ada.',
+            'kd_jadwal.required' => 'Kode jadwal harus diisi.',
             'mentor_id.required' => 'Mentor harus dipilih.',
             'mentor_id.exists' => 'Mentor yang dipilih tidak valid.',
             'pkt_kelas_id.required' => 'Paket Kelas harus dipilih.',
             'pkt_kelas_id.exists' => 'Paket Kelas yang dipilih tidak valid.',
+            'sarpra_id.required' => 'Nama Ruangan harus dipilih.',
+            'sarpra_id.exists' => 'Nama Ruangan yang dipilih tidak valid.',
             'hari.required' => 'Hari harus dipilih.',
             'hari.in' => 'Hari yang dipilih tidak valid.',
             'jam_mulai.required' => 'Jam Mulai harus diisi.',
             'jam_mulai.date_format' => 'Format Jam Mulai tidak valid, harus dalam format HH:mm.',
             'jam_akhir.required' => 'Jam Akhir harus diisi.',
             'jam_akhir.date_format' => 'Format Jam Akhir tidak valid, harus dalam format HH:mm.',
-
-            // Pesan validasi lainnya yang mungkin diperlukan
         ]);
-
-
-        // $validator->messages()->add('firstName.required', 'Nama depan harus diisi.');
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -128,14 +123,19 @@ class jadwalController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
+            'kd_jadwal' => 'required|unique:jadwal',
             'mentor_id' => 'required|exists:mentor,id',
             'pkt_kelas_id' => 'required|exists:pkt_kelas,id',
+            'sarpra_id' => 'required|exists:sarpra,id',
             'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu'
         ], [
+            'kd_jadwal.required' => 'Kode jadwal harus diisi.',
             'mentor_id.required' => 'Mentor harus dipilih.',
             'mentor_id.exists' => 'Mentor yang dipilih tidak valid.',
             'pkt_kelas_id.required' => 'Paket Kelas harus dipilih.',
             'pkt_kelas_id.exists' => 'Paket Kelas yang dipilih tidak valid.',
+            'sarpra_id.required' => 'Nama Ruangan harus dipilih.',
+            'sarpra_id.exists' => 'Nama Ruangan yang dipilih tidak valid.',
             'hari.required' => 'Hari harus dipilih.',
             'hari.in' => 'Hari yang dipilih tidak valid.',
             'jam_mulai.required' => 'Jam Mulai harus diisi.',
@@ -147,7 +147,7 @@ class jadwalController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        
         $jadwal = Jadwal::findOrFail($id);
         $jadwal->kd_jadwal = $request->kd_jadwal;
         $jadwal->hari = $request->hari;

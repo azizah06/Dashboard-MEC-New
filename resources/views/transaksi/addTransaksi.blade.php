@@ -40,7 +40,7 @@
                                         placeholder="Your Name" value="{{ old('kd_bayar') }}">
                                     <label for="kd_bayar">Kode Bayar</label>
                                     @error('kd_bayar')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     </select>
                                     <label for="floatingSelect">Nama Siswa</label>
                                     @error('siswa_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                     </select>
                                     <label for="floatingSelect">Paket Kelas</label>
                                     @error('pkt_kls_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                         placeholder="Your Name" value="{{ old('tgl_bayar') }}">
                                     <label for="tgl_bayar">Tanggal Bayar</label>
                                     @error('tgl_bayar')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                         placeholder="Your Name" value="{{ old('bukti_bayar') }}"  accept="image/*">
                                     <label for="bukti_bayar">Bukti Pembayaran</label>
                                     @error('bukti_bayar')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="text-danger"><small>{{ $message }}</small></div>
                                     @enderror
                                 </div>
                             </div>

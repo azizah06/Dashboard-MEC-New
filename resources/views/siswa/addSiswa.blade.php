@@ -1,8 +1,4 @@
 
-    @vite('resources/sass/app.scss')
-</head>
-
-<body>
     @extends('layouts.app')
     @section('content')
         <main id="main" class="main">
@@ -87,8 +83,8 @@
                                 <div class="form-floating mb-3">
                                     <select name="pkt_kelas_id" class="form-control @error('pkt_kelas_id') is-invalid @enderror" id="exampleSelectBorder" value="{{ old('pkt_kelas_id') }}">
                                         <option selected>Pilih...</option>
-                                        @foreach ($pkt_kelas as $class)
-                                            <option name="pkt_kelas_id" value="{{ $class->id }}">{{ $class->nama_kelas }}
+                                        @foreach ($pkt_kelas as $pk)
+                                            <option name="pkt_kelas_id" value="{{ $pk->id }}">{{ $pk->nama_kelas }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -109,11 +105,9 @@
                                 </div>
                             </div>
 
-
-
                             <div class="">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary">Kembali</a>
+                                <a href="{{ route('siswa.index') }}" class="btn btn-sm btn-secondary">Kembali</a>
 
                             </div>
                         </form><!-- End floating Labels Form -->
@@ -124,8 +118,3 @@
 
         </main><!-- End #main -->
     @endsection
-
-    @vite('resources/js/app.js')
-</body>
-
-</html>

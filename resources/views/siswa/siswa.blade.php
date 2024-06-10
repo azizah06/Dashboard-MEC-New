@@ -1,13 +1,13 @@
-@vite('resources/sass/app.scss')
-</head>
 
-<body>
 @extends('layouts.app')
 @section('content')
     @push('scripts')
         <script type="module">
             $(document).ready(function() {
-                $('#siswaTable').DataTable();
+                $('#siswaTable').DataTable({
+                    "autoWidth": false, // Disable automatic column width calculation
+                    "responsive": true // Enable responsive feature
+                });
                 $(".datatable").on("click", ".btn-delete", function(e) {
                     e.preventDefault();
 
@@ -44,10 +44,20 @@
                         </ol>
                     </nav>
                 </div>
+
                 <div class="col-md-6 text-end d-flex flex-column justify-content-center">
                     <div class="d-flex ms-auto">
                         <a href="{{ route('siswa.create') }}" class="btn btn-sm btn-primary px-3 me-2"><i class="bi bi-person-add"></i> Tambah Data</a>
-                        <a href="{{ route('siswa.exportExcels') }}" class="btn btn-sm btn-success"><i class="bi bi-download"></i> Export</a>
+                        <div class="dropdown me-2">
+                            <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="importDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-upload"></i> Export
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="importDropdown">
+                                <li><a class="dropdown-item" href="{{ route('siswa.exportExcels') }}">Export Excel</a></li>
+                                <li><a class="dropdown-item" href="{{ route('siswa.exportPdf') }}">Export PDF</a></li>
+                                <!-- Add more import options here if needed -->
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,10 +72,10 @@
 
                             <!-- Table with stripped rows -->
                             {{-- <div class="table-responsive"> --}}
-                                <table class="table datatable table-hover mb-0" style="width:73%" id="siswaTable">
+                                <table class="table datatable table-hover" id="siswaTable">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="width: 5%; white-space: nowrap;">No</th>
                                             <th>Nama</th>
                                             <th class="text-center" >Tanggal Lahir</th>
                                             <th class="text-center">No Telp</th>
@@ -116,8 +126,3 @@
 
     </main><!-- End #main -->
 @endsection
-
-@vite('resources/js/app.js')
-</body>
-
-</html>

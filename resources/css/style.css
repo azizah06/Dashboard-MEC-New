@@ -358,14 +358,9 @@
     line-height: 1;
   }
 
-  @media (min-width: 1200px) {
-    .logo {
-      width: 280px;
-    }
-  }
 
   .logo img {
-    max-height: 26px;
+    max-height: 36px;
     margin-right: 6px;
   }
 
@@ -375,6 +370,10 @@
     color: #012970;
     font-family: "Nunito", sans-serif;
   }
+  .burger-menu-active {
+    transform: translateX(200px); /* Ganti nilai ini sesuai dengan kebutuhan Anda */
+}
+
 
   .header {
     transition: all 0.5s;
@@ -389,7 +388,7 @@
 
   .header .toggle-sidebar-btn {
     font-size: 32px;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     cursor: pointer;
     color: #012970;
   }
@@ -915,9 +914,18 @@
     margin-left: 95px;
   }
 
+  /* recent-activity */
+  .dashboard .recent-activity{
+    font-size: 14px;
+    max-height: 580px;
+    overflow-y: auto;
+  }
+
   /* Recent Sales */
   .dashboard .recent-sales {
     font-size: 14px;
+    max-height: 200px;
+    overflow-y: auto;
   }
 
   .dashboard .recent-sales .table thead {
@@ -1230,7 +1238,7 @@
     table-layout: fixed;
 }
 
-#siswaTable th,
+
 #siswaTable td {
     white-space: nowrap;
     overflow: hidden;
