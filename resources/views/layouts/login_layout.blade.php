@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Dashboard MEC</title>
     {{-- <title>{{ $pageTitle }}</title> --}}
+    <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
+
     @vite('resources/sass/app.scss')
 </head>
 

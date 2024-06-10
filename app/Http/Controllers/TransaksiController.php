@@ -98,7 +98,7 @@ class TransaksiController extends Controller
         $transaksi->bukti_bayar = $imageName;
 
         $transaksi->save();
-        Alert::success('Tambah Data', 'Berhasil Tambah Data Siswa.');
+        Alert::success('Tambah Data', 'Transaksi berhasil tersimpan.');
         return redirect()->route('transaksi.index');
     }
 
@@ -191,7 +191,7 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::findOrFail($id);
         $transaksi->delete();
-        Alert::success('Hapus Data', 'Data Siswa Berhasil Dihapus');
+        Alert::success('Hapus Data', 'Data Transaksi Berhasil Dihapus');
         return redirect()->route('transaksi.index');
     }
 }
